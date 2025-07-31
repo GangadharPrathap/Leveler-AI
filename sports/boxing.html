@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Boxing | Learn Any Sport</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+  <script src="https://unpkg.com/lucide/dist/umd/lucide.js"></script>
+  <link rel="stylesheet" href="sport-card.css">
+      <style>
+        .tracking-bar-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); /* Responsive columns */
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .tracking-entry {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            background-color: #333333;
+            padding: 15px;
+            border-radius: 8px;
+            border: 1px solid #444;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+
+        .tracking-entry label {
+            font-weight: 600;
+            color: #e0e0e0; /* Light text */
+            display: flex; /* Allow icon and text to align */
+            align-items: center;
+            gap: 6px;
+        }
+
+        .tracking-entry label svg {
+            color: #8bbff7; /* Accent color for icons */
+            width: 18px;
+            height: 18px;
+        }
+
+        .tracking-entry input[type="number"],
+        .tracking-entry input[type="date"],
+        .tracking-entry select,
+        .tracking-entry input[type="text"] {
+            padding: 10px; /* Increased padding for better touch targets */
+            border: 1px solid #555; /* Darker border for inputs */
+            border-radius: 6px; /* Slightly more rounded corners */
+            flex-grow: 1;
+            background-color: #4a4a4a; /* Darker input background */
+            color: #e0e0e0; /* Light text in inputs */
+            font-size: 1em; /* Consistent font size */
+            transition: border-color 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .tracking-entry input[type="number"]:focus,
+        .tracking-entry input[type="date"]:focus,
+        .tracking-entry select:focus,
+        .tracking-entry input[type="text"]:focus {
+            border-color: #8bbff7; /* Accent border on focus */
+            box-shadow: 0 0 0 3px rgba(139, 191, 247, 0.3); /* Subtle glow on focus */
+            outline: none; /* Remove default outline */
+        }
+
+        .tracking-entry button {
+            /* Inherits styles from .btn */
+            width: 100%; /* Make buttons full width in their grid cell */
+            margin-top: 10px; /* Space above the button */
+        }
+
+        /* New button for clearing log */
+        .clear-log-btn {
+            background-color: #e74c3c; /* Red color for clear action */
+            border: 2px solid #e74c3c;
+            color: #fff;
+        }
+
+        .clear-log-btn:hover {
+            background-color: #c0392b;
+            border-color: #c0392b;
+        }
+
+
+        #tracking-log {
+            color: #e0e0e0; /* Light text for log */
+            margin-top: 30px; /* More space from inputs */
+            border-top: 1px solid #4a4a4a;
+            padding-top: 25px;
+        }
+
+        #tracking-log h3 {
+            color: #8bbff7; /* Accent color for log heading */
+            font-size: 1.8em;
+            margin-bottom: 15px;
+            border-bottom: 2px solid #8bbff7;
+            padding-bottom: 8px;
+        }
+
+        #log-list {
+            list-style: none;
+            padding: 0;
+            display: grid;
+            gap: 10px; /* Space between log items */
+        }
+
+        #log-list li {
+            background-color: #3a3a3a; /* Slightly lighter background for log items */
+            border: 1px solid #4a4a4a; /* Darker border */
+            padding: 15px 20px; /* More padding */
+            border-radius: 5px;
+            display: flex; /* For potential future delete button */
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.95em;
+            transition: background-color 0.2s ease;
+        }
+
+        #log-list li:hover {
+             background-color: #444444; /* Slightly lighter on hover */
+        }
+
+        #log-list li.empty-message {
+            background-color: transparent;
+            border: none;
+            text-align: center;
+            font-style: italic;
+            color: #b0b0b0;
+            padding: 20px;
+        }
+
+        .section-buttons {
+            margin-top: 30px;
+            text-align: center;
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .section-buttons .btn {
+            min-width: 150px;
+        }
+    </style>
+</head>
+<body>
+  <header class="header">
+        <nav class="navbar container">
+            <a href="#home" class="nav-logo">Sport<span class="nav-logo-accent">Learn</span></a>
+
+            <ul class="nav-menu" id="nav-menu">
+                <li class="nav-item"><a href="sport.html" class="nav-link active">Home</a></li>
+                <li class="nav-item"><a href="#learn" class="nav-link">Learn</a></li>
+            </ul>
+
+            <div class="nav-actions">
+                <a href="#learn" class="btn btn-secondary">Get Started</a>
+            </div>
+
+            <div class="nav-toggle" id="nav-toggle">
+                <!-- Hamburger Icon -->
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+            </div>
+        </nav>
+    </header>
+
+  <section class="hero">
+    <img src="icons/boxing.svg" alt="Boxing Icon" class="sport-card-icon">
+    <h2>Boxing</h2>
+    <p>Boxing is an exciting and engaging sport that people enjoy all over the world...</p>
+  </section>
+
+  <main class="content">
+    <div class="overview-card">
+      <h2>Boxing 101 Overview</h2>
+    <p>
+    Boxing is often called the "sweet science" for a reason. It's an intense combat sport that offers incredible <strong>physical and mental benefits</strong>. Beyond the obvious strength and conditioning, boxing significantly improves <strong>cardiovascular health, agility, hand-eye coordination, and reflexes</strong>. It's a powerful stress reliever, boosting <strong>mental discipline, focus, and self-confidence</strong>. As an individual sport, it champions <strong>personal accountability and perseverance</strong>, pushing you to constantly refine your technique and mindset. Boxing cultivates a unique blend of <strong>raw power, strategic thinking, and graceful movement</strong>.
+</p>
+<p>
+    <strong>Key Aspects of Boxing:</strong>
+    <ul>
+        <li><strong>Stance & Footwork:</strong> Learn the fundamental boxing stance (orthodox vs. southpaw) and master crucial footwork techniques like shuffling, pivoting, and stepping to maintain balance, generate power, and control distance.</li>
+        <li><strong>Punching Mechanics:</strong> Understand the correct form and power generation for the core punches: the Jab, Cross, Hook, and Uppercut. Focus on proper weight transfer, hip rotation, and follow-through.</li>
+        <li><strong>Defense:</strong> Develop essential defensive skills including slipping, rolling, parrying, blocking, and clinching to avoid incoming punches and minimize damage. Defense is as crucial as offense.</li>
+        <li><strong>Combinations & Strategy:</strong> Learn how to string punches together into effective combinations. Understand ring generalship, adapting to opponents, and setting up openings for your attacks.</li>
+        <li><strong>Fitness & Conditioning:</strong> Boxing demands peak physical condition. Discover specialized training methods like jump rope, shadow boxing, heavy bag work, speed bag drills, and circuit training to build endurance, strength, and power.</li>
+        <li><strong>Equipment:</strong> Familiarize yourself with necessary gear including hand wraps for protection, boxing gloves (different weights for training and sparring), headgear, mouthguard, and appropriate athletic apparel.</li>
+        <li><strong>History & Culture:</strong> Explore the rich history of boxing, from ancient combat to its modern formalized rules. Learn about legendary fighters, iconic matches, and the sport's cultural impact worldwide.</li>
+    </ul>
+</p>
+    </div>
+
+    <div class="overview-card">
+      <h2>Career Opportunities in Boxing (India)</h2>
+      <p>
+    A dedication to boxing can lead to diverse and fulfilling career opportunities, both inside and outside the ring. Here are some pathways, with a focus on the growing boxing scene in India:
+</p>
+<ul>
+    <li>
+        <strong>Professional Boxer:</strong> For those with exceptional talent and unwavering dedication, a career as a professional boxer is the ultimate goal. In India, professional boxing is gaining traction with organizations like the Indian Boxing Council (IBC) and various promoters creating more avenues for pugilists to compete and earn.
+        <a href="https://www.indianboxingcouncil.com/professional-boxing-licenses/" target="_blank" rel="noopener noreferrer">Explore Indian Boxing Council Licenses</a>
+    </li>
+    <li>
+        <strong>Boxing Coach/Trainer:</strong> Skilled coaches are vital at all levels, from grassroots development to elite professional training. Opportunities exist in private boxing gyms, sports academies, schools, colleges, and even with national teams. Certifications from national (e.g., Boxing Federation of India) or international bodies (e.g., AIBA/IBA) are often required.
+        <a href="https://boxingfederation.in/" target="_blank" rel="noopener noreferrer">Visit Boxing Federation of India (BFI)</a>
+    </li>
+    <li>
+        <strong>Sports Authority of India (SAI) & Government Jobs:</strong> The Sports Authority of India frequently recruits boxing coaches and athletes for its various centers and programs across the country. Other government departments and public sector undertakings may also have positions related to sports, including boxing.
+        <a href="https://sportsauthorityofindia.nic.in/sai_new/job-opportunities" target="_blank" rel="noopener noreferrer">Explore SAI Job Opportunities</a>
+    </li>
+    <li>
+        <strong>Sports Management & Marketing:</strong> As boxing's commercial appeal grows in India, so does the demand for professionals in sports management, event organization, athlete representation, sponsorship management, and marketing. This includes working with federations, clubs, individual boxers, or sports agencies.
+    </li>
+    <li>
+        <strong>Sports Journalism & Broadcasting:</strong> With increasing media coverage of boxing events, there's a need for sports journalists, commentators, analysts, and content creators specializing in boxing news, fight previews, and post-fight analysis.
+    </li>
+    <li>
+        <strong>Sports Science & Medicine:</strong> Professional boxing teams and academies employ sports scientists, physiotherapists, strength and conditioning coaches, nutritionists, and sports psychologists to optimize athlete performance, prevent injuries, and aid in recovery.
+        <a href="https://sportsauthorityofindia.nic.in/sai/public/assets/jobs/1733919227_2025-26-Recruitment-of-Support-Staff-for-Boxing.pdf" target="_blank" rel="noopener noreferrer">SAI Support Staff Recruitment (Example)</a>
+    </li>
+    <li>
+        <strong>Refereeing & Officiating:</strong> Becoming a certified boxing referee or judge is a critical role that ensures fair play and adherence to rules in amateur and professional bouts. The Boxing Federation of India offers certification programs for officials.
+        <a href="https://boxingfederation.in/judge-registration-form/" target="_blank" rel="noopener noreferrer">BFI Referee/Judge Registration</a>
+    </li>
+    <li>
+        <strong>Youth Development & Academy Management:</strong> The growing interest in boxing at the grassroots level creates opportunities in establishing and managing youth boxing academies, focusing on talent identification, fundamental training, and promoting the sport among young enthusiasts.
+        <a href="https://www.sikkim.gov.in/media/press-release/press-info?name=Press+Release+from+The+Sikkim+Amateur+Boxing+Association&id=132987" target="_blank" rel="noopener noreferrer">Example of Youth Boxing Development (Sikkim)</a>
+    </li>
+</ul>
+    </div>
+
+    <section class="resources" id="resources">
+    <h2>Curated Resources to Elevate Your Boxing Game</h2>
+    <p>Whether you're aiming to master specific techniques or improve overall, these resources are hand-picked to guide your learning journey.</p>
+    <div class="resource-list">
+        <div class="resource-item">
+            <h3>Boxing Federation of India (BFI) Official Website</h3>
+            <p>The official national governing body for amateur boxing in India. Their website provides information on national championships, athlete development, coaching initiatives, and rules. Essential for staying updated on Indian boxing.</p>
+            <a href="https://boxingfederation.in/" target="_blank" rel="noopener noreferrer" style="text-decoration:underline;color:blue">Visit BFI Official Website</a>
+        </div>
+        <div class="resource-item">
+            <h3>World Boxing Official Website & Resources</h3>
+            <p>Explore the global governing body for boxing (formerly AIBA/IBA related). Their website offers information on international competitions, rules, and global development programs. Crucial for understanding the international boxing landscape.</p>
+            <a href="https://worldboxing.org/" target="_blank" rel="noopener noreferrer" style="text-decoration:underline;color:blue">Visit World Boxing Official Website</a>
+        </div>
+        <div class="resource-item">
+            <h3>YouTube Channels: "ExpertBoxing" & "Boxing Science"</h3>
+            <p>Visual learners can greatly benefit from these channels offering detailed tutorials on boxing techniques (footwork, punching, defense) and scientific approaches to boxing training and conditioning. Practical insights for all levels.</p>
+            <a href="https://www.youtube.com/user/expertboxing" target="_blank" rel="noopener noreferrer" style="text-decoration:underline;color:blue">ExpertBoxing YouTube</a><br>
+            <a href="https://www.youtube.com/c/BoxingScience" target="_blank" rel="noopener noreferrer" style="text-decoration:underline;color:blue">Boxing Science YouTube</a>
+        </div>
+        <div class="resource-item">
+            <h3>Books: "The Sweet Science" by A.J. Liebling</h3>
+            <p>Considered a classic in sports journalism, this book offers vivid accounts and deep insights into the world of boxing. It's essential for understanding the culture, history, and human element of the sport.</p>
+            <a href="https://www.goodreads.com/book/show/104190.The_Sweet_Science" target="_blank" rel="noopener noreferrer" style="text-decoration:underline;color:blue">Find on Goodreads</a>
+        </div>
+        <div class="resource-item">
+            <h3>Local Boxing Gyms & Academies (India)</h3>
+            <p>Hands-on training is paramount in boxing. Search for reputable local boxing gyms and academies in your area that offer professional coaching, structured training programs, and sparring opportunities. Look for affiliations with state boxing associations for quality assurance.</p>
+            <a href="https://www.google.com/search?q=boxing+academies+in+India" target="_blank" rel="noopener noreferrer" style="text-decoration:underline;color:blue">Search Local Academies</a>
+        </div>
+        <div class="resource-item">
+            <h3>Online Courses: Udemy/ExpertBoxing Boxing Courses</h3>
+            <p>For in-depth, structured learning, online platforms offer courses on boxing fundamentals, advanced techniques, and fitness. These can complement gym training and provide theoretical knowledge for aspiring boxers and coaches.</p>
+            <a href="https://www.udemy.com/topic/boxing/" target="_blank" rel="noopener noreferrer" style="text-decoration:underline;color:blue">Explore Boxing Courses on Udemy</a><br>
+            <a href="https://expertboxing.com/how-to-box-in-10-days" target="_blank" rel="noopener noreferrer" style="text-decoration:underline;color:blue">ExpertBoxing Premium Courses</a>
+        </div>
+        <div class="resource-item">
+            <h3>Fitness & Nutrition Guides for Boxers</h3>
+            <p>Optimal performance in boxing requires specific fitness, strength, and conditioning. Look for guides and resources from certified sports nutritionists and strength & conditioning coaches tailored for boxers to maximize your power, endurance, and recovery.</p>
+            <a href="https://boxingscience.co.uk/strength-training-for-boxing/" target="_blank" rel="noopener noreferrer" style="text-decoration:underline;color:blue">Boxing Science - Strength Training (Example)</a><br>
+            <a href="https://www.mensjournal.com/health-fitness/boxing-workout-5-routines-fighting-shape" target="_blank" rel="noopener noreferrer" style="text-decoration:underline;color:blue">Boxing Workouts (Example)</a>
+        </div>
+        <div class="resource-item">
+            <h3>Podcasts: "Boxing with Mannix and Mora" or "Boxing Life Stories"</h3>
+            <p>Listen to expert analysis, news, interviews with fighters, and discussions on tactics and the latest happenings in the boxing world. Podcasts are excellent for learning on the go and staying informed about professional boxing.</p>
+            <a href="http://googleusercontent.com/podcasts.apple.com/ca/podcast/boxing-with-mannix-and-mora/id1176276029" target="_blank" rel="noopener noreferrer" style="text-decoration:underline;color:blue">Boxing with Mannix and Mora</a><br>
+            <a href="http://googleusercontent.com/podcasts.apple.com/gb/podcast/boxing-life-stories/id1436759230" target="_blank" rel="noopener noreferrer" style="text-decoration:underline;color:blue">Boxing Life Stories</a>
+        </div>
+    </div>
+    <div class="section-buttons">
+        <a href="#learn" class="btn btn-secondary">Review Fundamentals</a>
+        <a href="#jobs" class="btn">Explore Career Paths</a>
+    </div>
+</section>
+        <section class="tracking-card" id="track">
+            <h2>Daily Progress Tracker</h2>
+            <p>Log your daily soccer activities and progress here. Consistent tracking helps you see your improvement over time!</p>
+            <div class="tracking-bar-container">
+                <div class="tracking-entry">
+                    <label for="track-date">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-calendar-days"><rect width="18" height="18" x="3" y="4" rx="2" ry="2"/><line x1="16" x2="16" y1="2" y2="6"/><line x1="8" x2="8" y1="2" y2="6"/><line x1="3" x2="21" y1="10" y2="10"/><path d="M8 14h.01"/><path d="M12 14h.01"/><path d="M16 14h.01"/><path d="M8 18h.01"/><path d="M12 18h.01"/><path d="M16 18h.01"/></svg>
+                        Date:
+                    </label>
+                    <input type="date" id="track-date" value="2025-07-30">
+                </div>
+                <div class="tracking-entry">
+                    <label for="track-activity">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-dumbbell"><path d="M14.4 14.4 9.6 9.6"/><path d="M18 14 14 18"/><path d="M6 6 10 10"/><path d="M2 2l6 6"/><path d="M22 22l-6-6"/><path d="M16 16c-.8 0-1.5-.7-1.5-1.5v-3c0-.8.7-1.5 1.5-1.5s1.5.7 1.5 1.5v3c0 .8-.7 1.5-1.5 1.5z"/><path d="M8 8c-.8 0-1.5-.7-1.5-1.5v-3c0-.8.7-1.5 1.5-1.5S9.5 3.7 9.5 4.5v3c0 .8-.7 1.5-1.5 1.5z"/></svg>
+                        Activity:
+                    </label>
+                    <select id="track-activity">
+                        <option value="training">Training Session</option>
+                        <option value="drills">Skill Drills</option>
+                        <option value="match">Match Play</option>
+                        <option value="fitness">Fitness Training</option>
+                        <option value="study">Tactical Study</option>
+                    </select>
+                </div>
+                <div class="tracking-entry">
+                    <label for="track-duration">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-hourglass"><path d="M5 22h14"/><path d="M5 2h14"/><path d="M17 22v-4.172a2 2 0 0 0-.586-1.414L12 12l-4.414 4.414A2 2 0 0 0 7 17.828V22"/><path d="M7 2v4.172a2 2 0 0 0 .586 1.414L12 12l4.414-4.414A2 2 0 0 0 17 6.172V2"/></svg>
+                        Duration (mins):
+                    </label>
+                    <input type="number" id="track-duration" min="15" max="300" value="60">
+                </div>
+                <div class="tracking-entry">
+                    <label for="track-notes">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-file-text"><path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z"/><path d="M14 2v4a2 2 0 0 0 2 2h4"/><path d="M10 9H8"/><path d="M16 13H8"/><path d="M16 17H8"/></svg>
+                        Notes:
+                    </label>
+                    <input type="text" id="track-notes" placeholder="e.g., Worked on passing accuracy, game analysis">
+                </div>
+                <div class="tracking-entry" style="grid-column: 1 / -1; display: flex; justify-content: center;">
+                    <button id="add-track-entry" class="btn btn-secondary" style=" display:flex ; Justify-content: center; align-items:center;">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-plus-circle"><circle cx="12" cy="12" r="10"/><path d="M8 12h8"/><path d="M12 8v8"/></svg>
+                        Add Entry
+                    </button>
+                    <button id="clear-log-btn" class="btn clear-log-btn" style="margin-left: 10px; display: flex ; Justify-content: center; align-items:center;">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-trash-2"><path d="M3 6h18"/><path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"/><path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"/><line x1="10" x2="10" y1="11" y2="17"/><line x1="14" x2="14" y1="11" y2="17"/></svg>
+                        Clear Log
+                    </button>
+                </div>
+            </div>
+            <div id="tracking-log">
+                <h3>Your Log:</h3>
+                <ul id="log-list">
+                    <li class="empty-message">No entries yet. Add your first activity!</li>
+                </ul>
+            </div>
+            <div class="section-buttons">
+                <a href="#learn" class="btn btn-secondary">Review Fundamentals</a>
+                <a href="#resources" class="btn">Browse More Resources</a>
+            </div>
+        </section>
+  </main>
+
+  <footer>
+    <p>Contact: <a href="mailto:louie@learnanysport.com">louie@learnanysport.com</a></p>
+  </footer>
+
+  <script>lucide.replace();</script>
+</body>
+</html>

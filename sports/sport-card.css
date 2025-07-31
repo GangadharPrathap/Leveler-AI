@@ -1,0 +1,287 @@
+/* 1. Root Variables (Copied from home CSS) */
+:root {
+  --bg-dark-primary: #111827;
+  --bg-dark-secondary: #1f2937;
+  --accent-primary: #f59e0b;
+  --accent-secondary: #eab308;
+  --text-primary: #f9fafb;
+  --text-secondary: #d1d5db;
+  --border-color: #374151;
+  --shadow-color: rgba(0, 0, 0, 0.5);
+  --font-family-sans: "Inter", sans-serif;
+}
+
+/* 2. General Styles (Reset and Defaults) */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: var(--font-family-sans);
+  background-color: var(--bg-dark-primary);
+  color: var(--text-primary);
+  line-height: 1.6;
+}
+
+a {
+  color: var(--text-primary);
+  text-decoration: none;
+}
+
+ul {
+  list-style: none;
+}
+
+img,
+svg {
+  max-width: 100%;
+  display: block;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 1rem;
+}
+
+.btn {
+  display: inline-block;
+  padding: 0.75rem 1.5rem;
+  border-radius: 0.5rem;
+  font-weight: 600;
+  text-align: center;
+  transition: transform 0.2s ease, background-color 0.2s ease;
+}
+
+.btn-secondary {
+  background-color: var(--bg-dark-secondary);
+  border: 1px solid var(--border-color);
+}
+
+.btn-secondary:hover {
+  background-color: var(--border-color);
+  transform: translateY(-2px);
+}
+
+/* 3. Header / Navigation (Identical to home page) */
+.header {
+  position: sticky;
+  top: 0;
+  left: 0;
+  width: 100%;
+  background-color: rgba(17, 24, 39, 0.8);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid var(--border-color);
+  z-index: 1000;
+}
+
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 5rem;
+}
+
+.nav-logo {
+  font-size: 1.5rem;
+  font-weight: 800;
+}
+
+.nav-logo-accent {
+  color: var(--accent-primary);
+}
+
+.nav-menu {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+}
+
+.nav-link {
+  font-weight: 600;
+  transition: color 0.2s ease;
+  position: relative;
+  padding-bottom: 4px;
+}
+
+.nav-link::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background-color: var(--accent-primary);
+  transition: width 0.3s ease;
+}
+
+.nav-link:hover,
+.nav-link.active {
+  color: var(--accent-primary);
+}
+
+.nav-link:hover::after,
+.nav-link.active::after {
+  width: 100%;
+}
+
+.nav-toggle {
+  display: none;
+  font-size: 1.5rem;
+  cursor: pointer;
+  color: var(--text-primary); /* Ensure icon is visible */
+}
+
+.nav-actions {
+  /* This style exists on the home page, so we include it for consistency */
+  display: block;
+}
+
+/* 4. Sport Card Page-Specific Styles */
+.hero {
+  background: url("https://source.unsplash.com/featured/?basketball")
+    center/cover no-repeat;
+  padding: 100px 20px;
+  color: var(--text-primary);
+  /* Flexbox styles for alignment */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap; /* Allows items to wrap to the next line */
+  gap: 1rem; /* Creates space between the icon and title */
+}
+
+.hero h2 {
+  font-size: 3rem;
+  font-weight: 800;
+  margin: 0; /* Remove margin to let flexbox handle spacing */
+}
+
+.hero p {
+  font-size: 1.2rem;
+  max-width: 600px;
+  margin: 0; /* Remove margin */
+  flex-basis: 100%; /* Force the paragraph to take full width */
+  text-align: center; /* Ensure paragraph text remains centered */
+}
+
+.hero .sport-card-icon {
+  width: 50px;
+  height: 50px;
+  /* Filter from home page to color the SVG icon */
+  filter: brightness(0) saturate(100%) invert(70%) sepia(53%) saturate(5157%)
+    hue-rotate(359deg) brightness(98%) contrast(101%);
+}
+
+.content {
+  padding: 40px 20px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.overview-card,
+.resources {
+  background: var(--bg-dark-secondary);
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  box-shadow: 0 4px 8px var(--shadow-color);
+  margin-bottom: 30px;
+  padding: 20px;
+}
+
+.overview-card h2,
+.resources h2 {
+  color: var(--text-primary);
+  margin-bottom: 10px;
+  font-weight: 600;
+}
+
+.overview-card p {
+  color: var(--text-secondary);
+}
+
+.resources .resource-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 16px;
+}
+
+.resource-item {
+  background: var(--bg-dark-primary);
+  padding: 16px;
+  border: 1px solid var(--border-color);
+  border-radius: 6px;
+  color: var(--text-secondary);
+  transition: border-color 0.3s ease;
+}
+
+.resource-item h3 {
+  color: var(--text-primary);
+  margin-bottom: 8px;
+}
+
+.resource-item:hover {
+  border-color: var(--accent-primary);
+}
+
+footer {
+  text-align: center;
+  font-size: 0.9rem;
+  padding: 20px;
+  background: var(--bg-dark-secondary);
+  color: var(--text-secondary);
+  border-top: 1px solid var(--border-color);
+}
+
+footer a {
+  color: var(--accent-primary);
+  text-decoration: none;
+}
+
+footer a:hover {
+  text-decoration: underline;
+}
+
+/* 5. Responsive Design (Copied from home CSS for mobile menu) */
+@media (max-width: 768px) {
+  .nav-menu {
+    position: fixed;
+    top: 5rem; /* Height of the navbar */
+    left: -100%;
+    width: 100%;
+    height: calc(100vh - 5rem);
+    background-color: var(--bg-dark-primary);
+    flex-direction: column;
+    justify-content: center;
+    gap: 2.5rem;
+    transition: left 0.3s ease-in-out;
+  }
+
+  .nav-menu.active {
+    left: 0;
+  }
+
+  .nav-toggle {
+    display: block;
+  }
+
+  .nav-item {
+    width: 100%;
+    text-align: center;
+  }
+
+  .nav-link {
+    font-size: 1.25rem;
+  }
+
+  .nav-actions {
+    display: none; /* Hide desktop 'Get Started' button */
+  }
+
+  .hero h2 {
+    font-size: 2.5rem;
+  }
+}

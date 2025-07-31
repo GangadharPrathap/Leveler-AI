@@ -1,0 +1,1018 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CodeMonochrome - Languages & Courses</title>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-primary: #0A0A1F;
+            --bg-secondary: #1C1C3A;
+            --bg-tertiary: #28284A;
+            --text-primary: #E0E0FF;
+            --text-secondary: #C0C0FF;
+            --red-main: #E22B2B;
+            --red-accent: #FC8686;
+            --glow-color: #00FFFF;
+            --border-color-dark: rgba(58, 58, 90, 1);
+            --button-text-dark: #EE0000;
+        }
+
+        body.light-theme {
+            --bg-primary: #F0F0FF;
+            --bg-secondary: #FFFFFF;
+            --bg-tertiary: #E8E8FF;
+            --text-primary: #222233;
+            --text-secondary: #444455;
+            --red-main: #EE0000;
+            --red-accent: #FC8686;
+            --glow-color: rgba(0, 255, 255, 0.3);
+            --border-color-light: rgba(208, 208, 224, 1);
+            --button-text-dark: #FC8686;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Orbitron', sans-serif;
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.7;
+            transition: background-color 0.5s ease, color 0.5s ease;
+        }
+
+        header {
+            background-color: var(--bg-tertiary);
+            color: var(--text-primary);
+            padding: 1rem 1rem;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            border-bottom: 1px solid var(--border-color-dark);
+            box-shadow: 0 2px 15px rgba(0, 0, 0, 0.6);
+        }
+
+        body.light-theme header {
+            border-bottom: 1px solid var(--border-color-light);
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+            position: relative;
+        }
+
+        .logo h1 {
+            font-size: 1.8rem;
+            font-weight: 700;
+            letter-spacing: 2px;
+            text-shadow: 0 0 8px var(--glow-color);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            color: var(--text-primary);
+            text-decoration: none;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            border-bottom: 2px solid transparent;
+            padding-bottom: 0.3rem;
+        }
+
+        .nav-links a:hover {
+            border-bottom: 2px solid var(--red-accent);
+            color: var(--glow-color);
+            text-shadow: 0 0 10px var(--glow-color);
+        }
+
+        #themeToggle {
+            position: absolute;
+            top: 50%;
+            right: -5%;
+            transform: translateY(-50%);
+            background: var(--red-main);
+            color: var(--text-primary);
+            border: 2px solid var(--red-accent);
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 1.5em;
+            cursor: pointer;
+            box-shadow: 0 0 15px var(--glow-color);
+            transition: background 0.3s ease, color 0.3s ease, box-shadow 0.3s ease, transform 0.3s ease;
+        }
+
+        #themeToggle:hover {
+            background: var(--red-accent);
+            box-shadow: 0 0 20px var(--red-accent), 0 0 30px var(--red-accent);
+            transform: translateY(-50%) scale(1.05);
+        }
+
+        .main-content {
+            max-width: 1200px;
+            margin: 3rem auto;
+            padding: 0 2rem;
+        }
+
+        .section-title {
+            font-size: 2.2rem;
+            margin-bottom: 2rem;
+            text-align: center;
+            position: relative;
+            padding-bottom: 0.8rem;
+            color: var(--text-primary);
+            text-shadow: 0 0 10px var(--glow-color);
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 120px;
+            height: 3px;
+            background-color: var(--red-main);
+            box-shadow: 0 0 15px var(--glow-color);
+        }
+
+        .languages-courses-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 2.5rem;
+            margin-bottom: 4rem;
+        }
+
+        .language-course-card {
+            background-color: var(--bg-secondary);
+            border: 1px solid var(--border-color-dark);
+            border-radius: 8px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px var(--red-main);
+            position: relative;
+            display: flex; /* Make card a flex container */
+            flex-direction: column; /* Stack image and content vertically */
+        }
+
+        body.light-theme .language-course-card {
+            border: 1px solid var(--border-color-light);
+            box-shadow: 0 5px 15px rgba(238, 0, 0, 0.4); /* Light theme red shadow */
+        }
+
+        .language-course-card:hover {
+            box-shadow: 0 8px 20px var(--red-accent), 0 0 25px var(--red-accent);
+            border-color: var(--glow-color);
+        }
+
+        .card-image {
+            height: 180px;
+            overflow: hidden;
+            border-bottom: 1px solid var(--border-color-dark);
+        }
+
+        body.light-theme .card-image {
+            border-bottom: 1px solid var(--border-color-light);
+        }
+
+        .card-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .card-content {
+            padding: 1.5rem;
+            display: flex; /* Make content a flex container */
+            flex-direction: column; /* Stack h3, p, and button vertically */
+            flex-grow: 1; /* Allow content to grow and fill available space */
+            min-height: 200px; /* Ensure consistent height for content area */
+            justify-content: space-between; /* Pushes button to the bottom */
+        }
+
+        .card-content h3 {
+            margin-bottom: 0.8rem;
+            font-size: 1.3rem;
+            color: var(--red-accent);
+            text-shadow: 0 0 8px;
+        }
+
+        .card-content p {
+            margin-bottom: 1.2rem;
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+            flex-grow: 1; /* Allow paragraph to take up available space */
+        }
+
+        .card-content .tutorial-button { /* Changed to class selector */
+            display: inline-block;
+            padding: 0.6rem 1.2rem;
+            background-color: var(--red-main);
+            color: var(--text-primary);
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+            border-radius: 5px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+            text-align: center; /* Center text in button */
+            width: fit-content; /* Make button only as wide as its content */
+            margin-top: auto; /* Pushes the button to the bottom of the flex container */
+        }
+
+        .card-content .tutorial-button:hover {
+            background-color: var(--red-accent);
+            box-shadow: 0 0 15px var(--glow-color);
+        }
+
+        footer {
+            background-color: var(--bg-tertiary);
+            color: var(--text-primary);
+            padding: 1.5rem 2rem;
+            margin-top: 4rem;
+            border-top: 1px solid var(--border-color-dark);
+            box-shadow: inset 0 5px 15px rgba(0, 0, 0, 0.4);
+            text-align: center;
+        }
+
+        body.light-theme footer {
+            border-top: 1px solid var(--border-color-light);
+        }
+
+        .copyright {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+        }
+
+        /* --- Course Overlay Styles --- */
+        #course-overlay {
+            display: none; /* Hidden by default */
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.9); /* Dark overlay */
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            overflow-y: auto; /* Enable scrolling for long content */
+        }
+
+        .course-content-container {
+            background-color: var(--bg-secondary);
+            border: 1px solid var(--border-color-dark);
+            border-radius: 8px;
+            padding: 2.5rem;
+            max-width: 900px;
+            margin-top: 580px;
+            width: 100%;
+            box-shadow: 0 0 25px var(--glow-color);
+            position: relative;
+            animation: fadeInScale 0.3s ease-out forwards;
+
+        }
+
+        body.light-theme .course-content-container {
+             border: 1px solid var(--border-color-light);
+             box-shadow: 0 0 25px rgba(0, 255, 255, 0.3);
+        }
+
+
+        @keyframes fadeInScale {
+            from {
+                opacity: 0;
+                transform: scale(0.95);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        .close-button {
+            position: absolute;
+            top: 15px;
+            right: 20px;
+            background: var(--red-main);
+            color: var(--text-primary);
+            border: none;
+            border-radius: 50%;
+            width: 35px;
+            height: 35px;
+            font-size: 1.2em;
+            cursor: pointer;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transition: background 0.3s ease, transform 0.3s ease;
+        }
+
+        .close-button:hover {
+            background: var(--red-accent);
+            transform: scale(1.1);
+        }
+
+        #overlay-course-title {
+            font-size: 2.2rem;
+            color: var(--red-accent);
+            margin-bottom: 1.5rem;
+            text-align: center;
+            text-shadow: 0 0 10px;
+            padding-bottom: 10px;
+            border-bottom: 1px dashed var(--border-color-dark);
+        }
+
+        body.light-theme #overlay-course-title {
+            border-bottom: 1px dashed var(--border-color-light);
+        }
+
+        #overlay-youtube-embed {
+            margin-bottom: 1.5rem;
+            text-align: center;
+        }
+
+        #overlay-youtube-embed iframe {
+            width: 100%;
+            max-width: 700px;
+            height: 400px; /* Adjust height as needed */
+            border-radius: 8px;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
+        }
+
+        .progress-section {
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+
+        .progress-bar-container {
+            width: 100%;
+            background-color: var(--bg-tertiary);
+            border-radius: 5px;
+            height: 25px;
+            overflow: hidden;
+            margin: 10px auto;
+            border: 1px solid var(--border-color-dark);
+            box-shadow: inset 0 0 8px rgba(0, 0, 0, 0.5);
+        }
+
+        body.light-theme .progress-bar-container {
+            border: 1px solid var(--border-color-light);
+            box-shadow: inset 0 0 8px rgba(0, 0, 0, 0.2);
+        }
+
+        .progress-bar {
+            height: 100%;
+            background-color: var(--glow-color); /* Cyan glow color for progress */
+            width: 0%;
+            border-radius: 5px;
+            transition: width 0.4s ease-in-out;
+            box-shadow: 0 0 10px var(--glow-color);
+        }
+
+        #progress-percentage {
+            font-size: 1.1rem;
+            color: var(--text-primary);
+        }
+
+        #course-topics {
+            border-top: 1px dashed var(--border-color-dark);
+            padding-top: 1.5rem;
+        }
+        body.light-theme #course-topics {
+            border-top: 1px dashed var(--border-color-light);
+        }
+
+
+        .topic-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 1rem;
+            font-size: 1.1rem;
+            color: var(--text-secondary);
+            cursor: pointer;
+            transition: color 0.3s ease;
+        }
+
+        .topic-item:hover {
+            color: var(--text-primary);
+        }
+
+        .topic-item input[type="checkbox"] {
+            margin-right: 10px;
+            width: 20px;
+            height: 20px;
+            accent-color: var(--red-main); /* Style checkbox accent color */
+            cursor: pointer;
+        }
+
+        .topic-item label {
+            cursor: pointer;
+            user-select: none; /* Prevent text selection on label click */
+        }
+
+        .topic-item input[type="checkbox"]:checked + label {
+            text-decoration: line-through;
+            color: var(--red-accent);
+        }
+
+        /* --- Responsive Design --- */
+        @media (max-width: 992px) {
+            header, .main-content, footer {
+                padding-left: 1.5rem;
+                padding-right: 1.5rem;
+            }
+            .logo h1 { font-size: 1.6rem; }
+            .nav-links { gap: 1.5rem; }
+            .nav-links a { font-size: 0.95rem; }
+            #themeToggle { right: 0; }
+            .section-title { font-size: 2rem; }
+            .languages-courses-grid { gap: 2rem; }
+            .card-content { min-height: 180px; padding: 1.2rem;} /* Adjusted min-height */
+            .card-content h3 { font-size: 1.2rem; }
+            .card-content p { font-size: 0.9rem; }
+            .copyright { font-size: 0.85rem; }
+
+            .course-content-container { padding: 2rem; }
+            #overlay-course-title { font-size: 1.8rem; }
+            #overlay-youtube-embed iframe { height: 350px; }
+            .topic-item { font-size: 1rem; }
+        }
+
+        @media (max-width: 768px) {
+            nav {
+                flex-direction: column;
+                gap: 1rem;
+                align-items: flex-start;
+            }
+            .logo { width: 100%; text-align: center; margin-bottom: 1rem; }
+            .nav-links { width: 100%; justify-content: center; gap: 0.8rem; flex-wrap: wrap; }
+            .nav-links a { padding: 0.5rem 0.8rem; border-bottom: none; }
+            #themeToggle { position: static; margin: 10px auto 0; transform: none; }
+            .main-content { padding: 0 1.5rem; margin: 2rem auto; }
+            .section-title { font-size: 1.8rem; margin-bottom: 1.5rem; }
+            .section-title::after { width: 80px; }
+            .languages-courses-grid { grid-template-columns: 1fr; gap: 1.5rem; }
+            footer { padding: 1rem 1.5rem; margin-top: 3rem; }
+            .card-content { min-height: unset; height: auto;} /* Allow height to adjust on smaller screens */
+            .card-content p { margin-bottom: 0.8rem; } /* Reduce margin for paragraphs */
+
+            .course-content-container { padding: 1.5rem; }
+            #overlay-course-title { font-size: 1.6rem; margin-bottom: 1rem;}
+            #overlay-youtube-embed iframe { height: 250px; }
+            .topic-item { font-size: 0.95rem; }
+        }
+
+        @media (max-width: 480px) {
+            header, .main-content, footer {
+                padding-left: 1rem;
+                padding-right: 1rem;
+            }
+            .logo h1 { font-size: 1.4rem; }
+            .nav-links { gap: 0.5rem; }
+            .nav-links a { font-size: 0.85rem; padding: 0.4rem 0.6rem; }
+            .section-title { font-size: 1.6rem; }
+            .language-course-card { padding: 0.8rem; }
+            .card-content h3 { font-size: 1.1rem; }
+            .card-content p { font-size: 0.85rem; }
+            .card-content .tutorial-button { font-size: 0.8rem; padding: 0.5rem 1rem; }
+            .copyright { font-size: 0.8rem; }
+
+            .course-content-container { padding: 1rem; }
+            .close-button { width: 30px; height: 30px; font-size: 1em; top: 10px; right: 10px;}
+            #overlay-course-title { font-size: 1.4rem; }
+            #overlay-youtube-embed iframe { height: 200px; }
+            .topic-item { font-size: 0.9rem; }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="logo">
+                <h1>Leveler AI</h1>
+            </div>
+            <div class="nav-links">
+                <a href="index.html">Home</a>
+                <a href="tutorials.html">Tutorials</a>
+                <a href="document.html">Documentation</a>
+                <a href="cheatsheet.html">Cheat Sheets</a>
+                <a href="resources.html">Resources</a>
+            </div>
+            <button id="themeToggle">💡</button>
+        </nav>
+    </header>
+
+    <div class="main-content">
+        <section id="languages-and-courses">
+            <h2 class="section-title">Explore Languages & Courses</h2>
+            <div class="languages-courses-grid">
+                <div class="language-course-card">
+                    <div class="card-image">
+                        <img src="https://placehold.co/600x400/1C1C3A/E0E0FF?text=JavaScript" alt="JavaScript language tutorial image">
+                    </div>
+                    <div class="card-content">
+                        <h3>JavaScript: The Complete Guide</h3>
+                        <p>Master modern JavaScript from beginner to advanced concepts, including ES6+.</p>
+                        <a href="#" class="tutorial-button" data-course-id="javascript">Start Tutorial (YouTube)</a>
+                    </div>
+                </div>
+
+                <div class="language-course-card">
+                    <div class="card-image">
+                        <img src="https://placehold.co/600x400/1C1C3A/E0E0FF?text=Python" alt="Python language tutorial image">
+                    </div>
+                    <div class="card-content">
+                        <h3>Python for Beginners & Beyond</h3>
+                        <p>Learn Python for web development, data science, and automation.</p>
+                        <a href="#" class="tutorial-button" data-course-id="python">Start Tutorial (YouTube)</a>
+                    </div>
+                </div>
+
+                <div class="language-course-card">
+                    <div class="card-image">
+                        <img src="https://placehold.co/600x400/1C1C3A/E0E0FF?text=Java" alt="Java programming language tutorial image">
+                    </div>
+                    <div class="card-content">
+                        <h3>Java Programming Masterclass</h3>
+                        <p>In-depth course on Java fundamentals, OOP, and advanced features.</p>
+                        <a href="#" class="tutorial-button" data-course-id="java">Start Tutorial (YouTube)</a>
+                    </div>
+                </div>
+
+                <div class="language-course-card">
+                    <div class="card-image">
+                        <img src="https://placehold.co/600x400/1C1C3A/E0E0FF?text=Cpp" alt="C++ programming language tutorial image">
+                    </div>
+                    <div class="card-content">
+                        <h3>C++: Data Structures & Algorithms</h3>
+                        <p>Learn C++ and essential data structures and algorithms for competitive programming.</p>
+                        <a href="#" class="tutorial-button" data-course-id="cpp">Start Tutorial (YouTube)</a>
+                    </div>
+                </div>
+
+                <div class="language-course-card">
+                    <div class="card-image">
+                        <img src="https://placehold.co/600x400/1C1C3A/E0E0FF?text=Go+Lang" alt="Go programming language tutorial image">
+                    </div>
+                    <div class="card-content">
+                        <h3>Go Language Crash Course</h3>
+                        <p>Get started with Google's Go (Golang) for backend and cloud applications.</p>
+                        <a href="#" class="tutorial-button" data-course-id="golang">Start Tutorial (YouTube)</a>
+                    </div>
+                </div>
+
+                <div class="language-course-card">
+                    <div class="card-image">
+                        <img src="https://placehold.co/600x400/1C1C3A/E0E0FF?text=Rust" alt="Rust programming language tutorial image">
+                    </div>
+                    <div class="card-content">
+                        <h3>Rust Programming: A Practical Guide</h3>
+                        <p>Explore Rust's performance, memory safety, and concurrency features.</p>
+                        <a href="#" class="tutorial-button" data-course-id="rust">Start Tutorial (YouTube)</a>
+                    </div>
+                </div>
+
+                <div class="language-course-card">
+                    <div class="card-image">
+                        <img src="https://placehold.co/600x400/1C1C3A/E0E0FF?text=Web+Dev+Bootcamp" alt="Web Development Bootcamp course image">
+                    </div>
+                    <div class="card-content">
+                        <h3>Full Stack Web Development</h3>
+                        <p>Comprehensive bootcamp covering frontend, backend, and databases.</p>
+                        <a href="#" class="tutorial-button" data-course-id="webdev">Start Tutorial (YouTube)</a>
+                    </div>
+                </div>
+
+                <div class="language-course-card">
+                    <div class="card-image">
+                        <img src="https://placehold.co/600x400/1C1C3A/E0E0FF?text=Data+Science" alt="Data Science course image">
+                    </div>
+                    <div class="card-content">
+                        <h3>Data Science & Machine Learning</h3>
+                        <p>Introduction to data analysis, machine learning algorithms, and tools.</p>
+                        <a href="#" class="tutorial-button" data-course-id="datasci">Start Tutorial (YouTube)</a>
+                    </div>
+                </div>
+
+                <div class="language-course-card">
+                    <div class="card-image">
+                        <img src="https://placehold.co/600x400/1C1C3A/E0E0FF?text=Machine Learning" alt="Machine Learning course image">
+                    </div>
+                    <div class="card-content">
+                        <h3>Data Science & Machine Learning</h3>
+                        <p>Introduction to data analysis, machine learning algorithms, and tools.</p>
+                        <a href="#" class="tutorial-button" data-course-id="ml">Start Tutorial (YouTube)</a>
+                    </div>
+                </div>
+
+                <div class="language-course-card">
+                    <div class="card-image">
+                        <img src="https://placehold.co/600x400/1C1C3A/E0E0FF?text=SQL+DB" alt="SQL and Databases course image">
+                    </div>
+                    <div class="card-content">
+                        <h3>SQL & Database Management</h3>
+                        <p>Learn SQL for data manipulation, database design, and administration.</p>
+                        <a href="#" class="tutorial-button" data-course-id="sql">Start Tutorial (YouTube)</a>
+                    </div>
+                </div>
+
+                <div class="language-course-card">
+                    <div class="card-image">
+                        <img src="https://placehold.co/600x400/1C1C3A/E0E0FF?text=DevOps+Cloud" alt="DevOps and Cloud course image">
+                    </div>
+                    <div class="card-content">
+                        <h3>DevOps & Cloud Essentials</h3>
+                        <p>Introduction to CI/CD, Docker, Kubernetes, and cloud platforms (AWS/Azure/GCP).</p>
+                        <a href="#" class="tutorial-button" data-course-id="devops">Start Tutorial (YouTube)</a>
+                    </div>
+                </div>
+
+                <div class="language-course-card">
+                    <div class="card-image">
+                        <img src="https://placehold.co/600x400/1C1C3A/E0E0FF?text=GFG+DSA" alt="GeeksforGeeks Data Structures & Algorithms course image">
+                    </div>
+                    <div class="card-content">
+                        <h3>DSA (GeeksforGeeks)</h3>
+                        <p>Comprehensive articles and practice problems for Data Structures and Algorithms.</p>
+                        <a href="https://www.geeksforgeeks.org/data-structures/" target="_blank" class="tutorial-button">Go to GFG Tutorial</a>
+                    </div>
+                </div>
+
+                <div class="language-course-card">
+                    <div class="card-image">
+                        <img src="https://placehold.co/600x400/1C1C3A/E0E0FF?text=GFG+Python" alt="GeeksforGeeks Python tutorial image">
+                    </div>
+                    <div class="card-content">
+                        <h3>Python (GeeksforGeeks)</h3>
+                        <p>In-depth tutorials and code examples for Python programming.</p>
+                        <a href="https://www.geeksforgeeks.org/python-programming-language/" target="_blank" class="tutorial-button">Go to GFG Tutorial</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <footer>
+        <div class="copyright">
+            <p>© 2025 CodeMonochrome. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <div id="course-overlay">
+        <div class="course-content-container">
+            <button class="close-button" onclick="closeCourseOverlay()">X</button>
+            <h2 id="overlay-course-title"></h2>
+
+            <div id="overlay-youtube-embed">
+                </div>
+
+            <div class="progress-section">
+                <h3>Your Progress</h3>
+                <div class="progress-bar-container">
+                    <div class="progress-bar" id="course-progress"></div>
+                </div>
+                <p><span id="progress-percentage">0%</span> Complete</p>
+            </div>
+
+            <div id="course-topics">
+                <h3>Topics</h3>
+                </div>
+        </div>
+    </div>
+
+    <script>
+        const themeToggle = document.getElementById('themeToggle');
+        const body = document.body;
+
+        function setTheme(theme) {
+            if (theme === 'light') {
+                body.classList.add('light-theme');
+                themeToggle.textContent = '💡';
+            } else {
+                body.classList.remove('light-theme');
+                themeToggle.textContent = '🌙';
+            }
+            localStorage.setItem('theme', theme);
+        }
+
+        function toggleTheme() {
+            if (body.classList.contains('light-theme')) {
+                setTheme('dark');
+            } else {
+                setTheme('light');
+            }
+        }
+
+        themeToggle.addEventListener('click', toggleTheme);
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const savedTheme = localStorage.getItem('theme') || 'dark';
+            setTheme(savedTheme);
+        });
+
+        // --- Course Data and Logic ---
+        const coursesData = {
+            "javascript": {
+                title: "JavaScript: The Complete Guide",
+                youtubeId: "Ihy0QziLDf0", // Placeholder YouTube ID
+                topics: [
+                    "Introduction to JavaScript",
+                    "Variables and Data Types",
+                    "Operators and Expressions",
+                    "Control Flow (If/Else, Loops)",
+                    "Functions and Scope",
+                    "Arrays and Objects",
+                    "DOM Manipulation",
+                    "Events",
+                    "Asynchronous JavaScript (Callbacks, Promises, Async/Await)",
+                    "ES6+ Features (Arrow Functions, Classes, Destructuring)"
+                ],
+                completedTopics: []
+            },
+            "python": {
+                title: "Python for Beginners & Beyond",
+                youtubeId: "rfscVS0vtbw", // Placeholder YouTube ID
+                topics: [
+                    "Python Basics: Syntax and Variables",
+                    "Data Structures: Lists, Tuples, Dictionaries, Sets",
+                    "Control Flow: If/Elif/Else, For and While Loops",
+                    "Functions and Modules",
+                    "File I/O",
+                    "Object-Oriented Programming (OOP)",
+                    "Error Handling",
+                    "Working with External Libraries (e.g., NumPy, Pandas)"
+                ],
+                completedTopics: []
+            },
+            "java": {
+                title: "Java Programming Masterclass",
+                youtubeId: "23HFxAPyJ9U", // Placeholder YouTube ID
+                topics: [
+                    "Java Fundamentals and JVM",
+                    "Primitive Types and Objects",
+                    "Control Flow Statements",
+                    "Object-Oriented Programming (OOP) Concepts",
+                    "Inheritance and Polymorphism",
+                    "Abstract Classes and Interfaces",
+                    "Collections Framework",
+                    "Exception Handling",
+                    "Multithreading",
+                    "File I/O and Networking"
+                ],
+                completedTopics: []
+            },
+            "cpp": {
+                title: "C++: Data Structures & Algorithms",
+                youtubeId: "S3nx34WFXjI", // Placeholder YouTube ID
+                topics: [
+                    "C++ Basics and Syntax",
+                    "Pointers and Memory Management",
+                    "Object-Oriented Programming (OOP) in C++",
+                    "Templates and STL",
+                    "Introduction to Data Structures (Arrays, Linked Lists)",
+                    "Trees and Graphs",
+                    "Sorting Algorithms",
+                    "Searching Algorithms",
+                    "Dynamic Programming Concepts"
+                ],
+                completedTopics: []
+            },
+            "golang": {
+                title: "Go Language Crash Course",
+                youtubeId: "YS4e4q9oBaU", // Placeholder YouTube ID
+                topics: [
+                    "Go Language Basics",
+                    "Variables, Constants, and Data Types",
+                    "Control Structures",
+                    "Functions and Packages",
+                    "Structs and Interfaces",
+                    "Error Handling",
+                    "Goroutines and Concurrency",
+                    "Channels",
+                    "Building Web Servers with Go"
+                ],
+                completedTopics: []
+            },
+            "rust": {
+                title: "Rust Programming: A Practical Guide",
+                youtubeId: "BpPEoZW5IiY", // Placeholder YouTube ID
+                topics: [
+                    "Rust Basics and Ownership",
+                    "Borrowing and Lifetimes",
+                    "Structs, Enums, and Pattern Matching",
+                    "Modules and Crates",
+                    "Error Handling with `Result` and `Option`",
+                    "Traits and Generics",
+                    "Concurrency in Rust",
+                    "Macros",
+                    "Web Development with Actix-web/Rocket"
+                ],
+                completedTopics: []
+            },
+            "webdev": {
+                title: "Full Stack Web Development",
+                youtubeId: "HGTJBPNC-Gw", // Placeholder YouTube ID
+                topics: [
+                    "HTML5 Fundamentals",
+                    "CSS3 Styling and Layouts (Flexbox, Grid)",
+                    "JavaScript DOM Manipulation",
+                    "Frontend Frameworks (React/Vue/Angular - Intro)",
+                    "Node.js and Express.js (Backend Basics)",
+                    "RESTful APIs",
+                    "Database Fundamentals (MongoDB/SQL)",
+                    "Authentication and Authorization",
+                    "Deployment Basics"
+                ],
+                completedTopics: []
+            },
+            "datasci": {
+                title: "Data Science",
+                youtubeId: "ua-CiDNNj30", // Placeholder YouTube ID
+                topics: [
+                    "Introduction to Data Science Workflow",
+                    "Python for Data Science (NumPy, Pandas)",
+                    "Data Cleaning and Preprocessing",
+                    "Exploratory Data Analysis (EDA)",
+                    "Introduction to Machine Learning",
+                    "Supervised Learning (Regression, Classification)",
+                    "Unsupervised Learning (Clustering)",
+                    "Model Evaluation and Hyperparameter Tuning",
+                    "Data Visualization (Matplotlib, Seaborn)"
+                ],
+                completedTopics: []
+            },
+            "ml": {
+                title: "Machine Learning",
+                youtubeId: "7IgVGSaQPaw", // Placeholder YouTube ID
+                topics: [
+                    "Introduction to Data Science Workflow",
+                    "Python for Data Science (NumPy, Pandas)",
+                    "Data Cleaning and Preprocessing",
+                    "Exploratory Data Analysis (EDA)",
+                    "Introduction to Machine Learning",
+                    "Supervised Learning (Regression, Classification)",
+                    "Unsupervised Learning (Clustering)",
+                    "Model Evaluation and Hyperparameter Tuning",
+                    "Data Visualization (Matplotlib, Seaborn)"
+                ],
+                completedTopics: []
+            },
+            "sql": {
+                title: "SQL & Database Management",
+                youtubeId: "5OdVJbNCSso", // Placeholder YouTube ID
+                topics: [
+                    "Introduction to Relational Databases",
+                    "SQL SELECT Statements",
+                    "Filtering and Sorting Data (WHERE, ORDER BY)",
+                    "Joining Tables (INNER, LEFT, RIGHT, FULL JOIN)",
+                    "Aggregating Data (GROUP BY, HAVING)",
+                    "Subqueries and CTEs",
+                    "INSERT, UPDATE, DELETE Statements",
+                    "Database Design Principles",
+                    "Indexes and Performance Optimization"
+                ],
+                completedTopics: []
+            },
+            "devops": {
+                title: "DevOps & Cloud Essentials",
+                youtubeId: "6GQRb4fGvtk", // Placeholder YouTube ID
+                topics: [
+                    "Introduction to DevOps Principles",
+                    "Version Control with Git",
+                    "Continuous Integration/Continuous Delivery (CI/CD)",
+                    "Containerization with Docker",
+                    "Orchestration with Kubernetes (Basics)",
+                    "Cloud Computing Concepts (IaaS, PaaS, SaaS)",
+                    "Introduction to AWS/Azure/GCP Services",
+                    "Infrastructure as Code (Terraform/Ansible - Intro)"
+                ],
+                completedTopics: []
+            }
+        };
+
+        let currentCourse = null; // Stores the currently viewed course object
+
+        const courseOverlay = document.getElementById('course-overlay');
+        const overlayCourseTitle = document.getElementById('overlay-course-title');
+        const overlayYoutubeEmbed = document.getElementById('overlay-youtube-embed');
+        const courseProgress = document.getElementById('course-progress');
+        const progressPercentage = document.getElementById('progress-percentage');
+        const courseTopicsContainer = document.getElementById('course-topics');
+
+        document.querySelectorAll('.tutorial-button').forEach(button => {
+            button.addEventListener('click', function(event) {
+                const courseId = this.dataset.courseId;
+                if (courseId) {
+                    event.preventDefault(); // Prevent default link behavior for internal courses
+                    openCourseOverlay(courseId);
+                }
+                // For GFG links, default behavior (opening in new tab) is preserved
+            });
+        });
+
+        function openCourseOverlay(courseId) {
+            currentCourse = coursesData[courseId];
+            if (!currentCourse) {
+                console.error("Course not found:", courseId);
+                return;
+            }
+
+            // Load completed topics from localStorage if available, otherwise initialize
+            const savedCompletedTopics = localStorage.getItem(`course-${courseId}-completed`);
+            if (savedCompletedTopics) {
+                currentCourse.completedTopics = JSON.parse(savedCompletedTopics);
+            } else {
+                currentCourse.completedTopics = [];
+            }
+
+            overlayCourseTitle.textContent = currentCourse.title;
+
+            // Load YouTube embed
+            overlayYoutubeEmbed.innerHTML = ''; // Clear previous embed
+            if (currentCourse.youtubeId) {
+                const iframe = document.createElement('iframe');
+                iframe.src = `https://www.youtube.com/embed/${currentCourse.youtubeId}`;
+                iframe.frameBorder = "0";
+                iframe.allow = "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture";
+                iframe.allowFullscreen = true;
+                overlayYoutubeEmbed.appendChild(iframe);
+            }
+
+            // Populate topics
+            courseTopicsContainer.innerHTML = '<h3>Topics</h3>'; // Clear previous topics and re-add heading
+            currentCourse.topics.forEach((topic, index) => {
+                const topicItem = document.createElement('div');
+                topicItem.classList.add('topic-item');
+
+                const checkbox = document.createElement('input');
+                checkbox.type = 'checkbox';
+                checkbox.id = `topic-${courseId}-${index}`;
+                checkbox.dataset.topicIndex = index;
+                checkbox.checked = currentCourse.completedTopics.includes(index);
+
+                const label = document.createElement('label');
+                label.htmlFor = `topic-${courseId}-${index}`;
+                label.textContent = topic;
+
+                topicItem.appendChild(checkbox);
+                topicItem.appendChild(label);
+                courseTopicsContainer.appendChild(topicItem);
+
+                checkbox.addEventListener('change', (e) => {
+                    const topicIndex = parseInt(e.target.dataset.topicIndex);
+                    if (e.target.checked) {
+                        if (!currentCourse.completedTopics.includes(topicIndex)) {
+                            currentCourse.completedTopics.push(topicIndex);
+                        }
+                    } else {
+                        currentCourse.completedTopics = currentCourse.completedTopics.filter(item => item !== topicIndex);
+                    }
+                    updateProgressBar();
+                    localStorage.setItem(`course-${courseId}-completed`, JSON.stringify(currentCourse.completedTopics));
+                });
+            });
+
+            updateProgressBar();
+            courseOverlay.style.display = 'flex'; // Show the overlay
+            document.body.style.overflow = 'hidden'; // Prevent scrolling on the main page
+        }
+
+        function closeCourseOverlay() {
+            courseOverlay.style.display = 'none'; // Hide the overlay
+            document.body.style.overflow = ''; // Restore scrolling on the main page
+            currentCourse = null; // Clear current course
+        }
+
+        function updateProgressBar() {
+            if (!currentCourse || currentCourse.topics.length === 0) {
+                courseProgress.style.width = '0%';
+                progressPercentage.textContent = '0%';
+                return;
+            }
+
+            const completedCount = currentCourse.completedTopics.length;
+            const totalTopics = currentCourse.topics.length;
+            const progress = (completedCount / totalTopics) * 100;
+
+            courseProgress.style.width = `${progress}%`;
+            progressPercentage.textContent = `${Math.round(progress)}%`;
+        }
+    </script>
+</body>
+</html>

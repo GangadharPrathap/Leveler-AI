@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Learn Sport</title>
+
+    <!-- Google Fonts: Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="sport.css">
+</head>
+<body>
+
+    <!-- Header -->
+    <header class="header">
+        <nav class="navbar container">
+            <a href="#home" class="nav-logo">Sport<span class="nav-logo-accent">Learn</span></a>
+
+            <ul class="nav-menu" id="nav-menu">
+                <li class="nav-item"><a href="#home" class="nav-link active">Home</a></li>
+                <li class="nav-item"><a href="#learn" class="nav-link">Learn</a></li>
+            </ul>
+
+            <div class="nav-actions">
+                <a href="#learn" class="btn btn-secondary">Get Started</a>
+            </div>
+
+            <div class="nav-toggle" id="nav-toggle">
+                <!-- Hamburger Icon -->
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <!-- Hero Section -->
+        <section id="home">
+            <div class="container">
+                <h1 class="hero-title">Master Any Sport, Faster Than Ever</h1>
+                <p class="hero-subtitle">Unlock your athletic potential with AI-powered coaching, personalized training plans, and a global community of sports enthusiasts.</p>
+                <a href="#learn" class="btn btn-primary">Start Learning Now</a>
+            </div>
+        </section>
+
+        <!-- Learn Section -->
+        <section id="learn">
+            <div class="container">
+                <h2 class="section-title">Choose Your Sport</h2>
+                <p class="section-subtitle">From the court to the field, we've got you covered. Select a sport to begin your personalized training journey.</p>
+                <div class="sports-grid">
+
+                    <a href="basketball.html" class="sport-card">
+                        <img src="icons/basketball.svg" alt="Basketball Icon" class="sport-card-icon">
+                        <h3 class="sport-card-title">Basketball</h3>
+                    </a>
+
+                    <a href="soccer.html" class="sport-card">
+                        <img src="icons/soccer.svg" alt="Soccer Icon" class="sport-card-icon">
+                        <h3 class="sport-card-title">Soccer</h3>
+                    </a>
+
+                    <a href="tennis.html" class="sport-card">
+                        <img src="icons/tennis.svg" alt="Tennis Icon" class="sport-card-icon">
+                        <h3 class="sport-card-title">Tennis</h3>
+                    </a>
+
+                    <a href="golf.html" class="sport-card">
+                        <img src="icons/golf.svg" alt="Golf Icon" class="sport-card-icon">
+                        <h3 class="sport-card-title">Golf</h3>
+                    </a>
+
+                    <a href="boxing.html" class="sport-card">
+                        <img src="icons/boxing.svg" alt="Boxing Icon" class="sport-card-icon">
+                        <h3 class="sport-card-title">Boxing</h3>
+                    </a>
+
+                    <a href="olympics.html" class="sport-card">
+                        <img src="icons/olympics.svg" alt="Olympics Icon" class="sport-card-icon">
+                        <h3 class="sport-card-title">Olympics</h3>
+                    </a>
+
+                    <a href="cricket.html" class="sport-card">
+                        <img src="icons/cricket.svg" alt="Cricket Icon" class="sport-card-icon">
+                        <h3 class="sport-card-title">Cricket</h3>
+                    </a>
+
+                    <a href="hockey.html" class="sport-card">
+                        <img src="icons/hockey.svg" alt="hockey Icon" class="sport-card-icon">
+                        <h3 class="sport-card-title">Hockey</h3>
+                    </a>
+
+                    <a href="cycling.html" class="sport-card">
+                        <img src="icons/cycling.svg" alt="cycling Icon" class="sport-card-icon">
+                        <h3 class="sport-card-title">Cycling</h3>
+                    </a>
+
+                </div>
+            </div>
+        </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container footer-container">
+            <a href="#home" class="footer-logo">Sport<span class="nav-logo-accent">Learn</span></a>
+            <ul class="footer-links">
+                <li><a href="#home" class="footer-link">Home</a></li>
+                <li><a href="#learn" class="footer-link">Learn</a></li>
+                <li><a href="#resources" class="footer-link">Resources</a></li>
+            </ul>
+            <div class="footer-socials">
+                <a href="#" class="social-link" aria-label="Twitter">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+                </a>
+                <a href="#" class="social-link" aria-label="Instagram">
+                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.85s-.011 3.584-.069 4.85c-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07s-3.584-.012-4.85-.07c-3.252-.148-4.771-1.691-4.919-4.919-.058-1.265-.069-1.645-.069-4.85s.011-3.584.069-4.85c.149-3.225 1.664-4.771 4.919-4.919C8.416 2.175 8.796 2.163 12 2.163m0-2.163C8.74 0 8.333.011 7.053.072 2.695.272.273 2.69.073 7.052.012 8.333 0 8.74 0 12s.012 3.667.072 4.947c.2 4.358 2.618 6.78 6.98 6.98C8.333 23.988 8.74 24 12 24s3.667-.012 4.947-.072c4.358-.2 6.78-2.618 6.98-6.98C23.988 15.667 24 15.26 24 12s-.012-3.667-.072-4.947c-.2-4.358-2.618-6.78-6.98-6.98C15.667.012 15.26 0 12 0zm0 5.838a6.162 6.162 0 1 0 0 12.324 6.162 6.162 0 0 0 0-12.324zM12 16a4 4 0 1 1 0-8 4 4 0 0 1 0 8zm6.406-11.845a1.44 1.44 0 1 0 0 2.88 1.44 1.44 0 0 0 0-2.88z"/></svg>
+                </a>
+                <a href="#" class="social-link" aria-label="LinkedIn">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
+                </a>
+            </div>
+            <p class="footer-copy">&copy; 2025 SportAI. All Rights Reserved.</p>
+        </div>
+    </footer>
+
+
+    <script src="sport.js"></script>
+</body>
+</html>
