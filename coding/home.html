@@ -1,0 +1,1046 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Leveler Ai</title>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-primary: #0A0A1F;
+            --bg-secondary: #1C1C3A;
+            --bg-tertiary: #28284A;
+            --text-primary: #E0E0FF;
+            --text-secondary: #C0C0FF;
+            --red-main: #E22B2B;
+            --red-accent: #FC8686;
+            --glow-color: #00FFFF;
+            --border-color-dark: rgba(58, 58, 90, 1);
+            --button-text-dark: #EE0000;
+        }
+
+        body.light-theme {
+            --bg-primary: #F0F0FF;
+            --bg-secondary: #FFFFFF;
+            --bg-tertiary: #E8E8FF;
+            --text-primary: #222233;
+            --text-secondary: #444455;
+            --red-main: #EE0000;
+            --red-accent: #FC8686;
+            --glow-color: rgba(0, 255, 255, 0.3);
+            --border-color-light: rgba(208, 208, 224, 1);
+            --button-text-dark: #FC8686;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Orbitron', sans-serif;
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.7;
+            transition: background-color 0.5s ease, color 0.5s ease;
+        }
+
+        header {
+            background-color: var(--bg-tertiary);
+            color: var(--text-primary);
+            padding: 1rem 2rem;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            border-bottom: 1px solid var(--border-color-dark);
+            box-shadow: 0 2px 15px rgba(0, 0, 0, 0.6);
+        }
+
+        body.light-theme header {
+            border-bottom: 1px solid var(--border-color-light);
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+            position: relative;
+        }
+
+        .logo h1 {
+            font-size: 1.8rem;
+            font-weight: 700;
+            letter-spacing: 2px;
+            text-shadow: 0 0 8px var(--glow-color);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            color: var(--text-primary);
+            text-decoration: none;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            border-bottom: 2px solid transparent;
+            padding-bottom: 0.3rem;
+        }
+
+        .nav-links a:hover {
+            border-bottom: 2px solid var(--red-accent);
+            color: var(--glow-color);
+            text-shadow: 0 0 10px var(--glow-color);
+        }
+
+        #themeToggle {
+            position: absolute;
+            top: 50%;
+            right: -5%;
+            transform: translateY(-50%);
+            background: var(--red-main);
+            color: var(--text-primary);
+            border: 2px solid var(--red-accent);
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 1.5em;
+            cursor: pointer;
+            box-shadow: 0 0 15px var(--red-main);
+            transition: background 0.3s ease, color 0.3s ease, box-shadow 0.3s ease, transform 0.3s ease;
+        }
+
+        #themeToggle:hover {
+            background: var(--red-accent);
+            box-shadow: 0 0 20px var(--red-accent), 0 0 30px var(--red-accent);
+            transform: translateY(-50%) scale(1.05);
+        }
+
+        .hero {
+            position: relative;
+            padding: 4rem 2rem;
+            text-align: center;
+            border-bottom: 1px solid var(--border-color-dark);
+            box-shadow: inset 0 -15px 30px rgba(0, 0, 0, 0.4);
+            overflow: hidden;
+            min-height: 400px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        body.light-theme .hero {
+            border-bottom: 1px solid var(--border-color-light);
+        }
+
+        .hero-video-background {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            z-index: -1;
+        }
+
+        .hero-video-background video {
+            min-width: 100%;
+            min-height: 100%;
+            width: auto;
+            height: auto;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            object-fit: cover;
+        }
+
+        .hero-content-overlay {
+            position: relative;
+            z-index: 1;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: rgba(0, 0, 0, 0.4);
+            border-radius: 10px;
+        }
+
+        .hero h2 {
+            font-size: 2.8rem;
+            margin-bottom: 1rem;
+            font-weight: 700;
+            text-shadow: 0 0 15px var(--glow-color), 0 0 30px var(--glow-color);
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            max-width: 800px;
+            margin: 0 auto 2rem;
+            color: var(--text-primary);
+            opacity: 0.9;
+        }
+
+        .search-bar {
+            max-width: 600px;
+            margin: 0 auto;
+            display: flex;
+        }
+
+        .search-bar input {
+            flex: 1;
+            padding: 0.8rem 1rem;
+            border: 1px solid var(--border-color-dark);
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1rem;
+            background-color: var(--bg-secondary);
+            color: var(--text-primary);
+            box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.2);
+        }
+
+        body.light-theme .search-bar input {
+            border: 1px solid var(--border-color-light);
+        }
+
+        .search-bar button {
+            padding: 0.8rem 1.5rem;
+            background-color: var(--red-main);
+            color: var(--text-primary);
+            border: none;
+            cursor: pointer;
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            box-shadow: 0 0 10px var(--glow-color);
+        }
+
+        .search-bar button:hover {
+            background-color: var(--red-accent);
+            box-shadow: 0 0 20px var(--glow-color);
+        }
+
+        .main-content {
+            max-width: 1200px;
+            margin: 3rem auto;
+            padding: 0 2rem;
+        }
+
+        .section-title {
+            font-size: 2.2rem;
+            margin-bottom: 2rem;
+            text-align: center;
+            position: relative;
+            padding-bottom: 0.8rem;
+            color: var(--text-primary);
+            text-shadow: 0 0 10px var(--glow-color);
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 120px;
+            height: 3px;
+            background-color: var(--red-main);
+            box-shadow: 0 0 15px var(--glow-color);
+        }
+
+        .content-grid {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-bottom: 4rem;
+        }
+
+        .content-card {
+            background-color: var(--bg-secondary);
+            border: 1px solid var(--border-color-dark);
+            border-radius: 8px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px var(--red-main);
+            position: relative;
+        }
+
+        body.light-theme .content-card {
+            border: 1px solid var(--border-color-light);
+            box-shadow: 0 5px 15px rgba(238, 0, 0, 0.4);
+        }
+
+        .content-card:hover {
+            box-shadow: 0 8px 20px var(--red-accent), 0 0 25px var(--red-accent);
+            transform: translateY(-8px);
+            border-color: var(--glow-color);
+        }
+
+        .card-image {
+            height: 180px;
+            overflow: hidden;
+            border-bottom: 1px solid var(--border-color-dark);
+        }
+
+        body.light-theme .card-image {
+            border-bottom: 1px solid var(--border-color-light);
+        }
+
+        .card-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .card-content {
+            padding: 1.5rem;
+        }
+
+        .card-content h3 {
+            margin-bottom: 0.8rem;
+            font-size: 1.3rem;
+            color: var(--red-accent);
+            text-shadow: 0 0 8px;
+        }
+
+        .card-content p {
+            margin-bottom: 1.2rem;
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+        }
+
+        .card-content a {
+            display: inline-block;
+            padding: 0.6rem 1.2rem;
+            background-color: var(--red-main);
+            color: var(--text-primary);
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+            border-radius: 5px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+        }
+
+        .card-content a:hover {
+            background-color: var(--red-accent);
+            box-shadow: 0 0 15px var(--glow-color);
+        }
+
+        /* Progress Tracker and Selected Courses */
+        #progressTracker, #selectedCourses {
+            background-color: var(--bg-secondary);
+            border: 1px solid var(--border-color-dark);
+            border-radius: 8px;
+            padding: 2rem;
+            margin-top: 3rem;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        body.light-theme #progressTracker,
+        body.light-theme #selectedCourses {
+            border: 1px solid var(--border-color-light);
+        }
+
+        #progressTracker h3, #selectedCourses h3 {
+            font-size: 1.5rem;
+            color: var(--red-accent);
+            margin-bottom: 1.5rem;
+            text-align: center;
+            text-shadow: 0 0 5px var(--glow-color);
+        }
+
+        #progressList, #selectedCoursesList {
+            list-style: none;
+            padding: 0;
+        }
+
+        #progressList li, #selectedCoursesList li {
+            background-color: var(--bg-tertiary);
+            padding: 1rem 1.5rem;
+            margin-bottom: 1rem;
+            border-radius: 5px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 1rem;
+            color: var(--text-primary);
+            border-left: 5px solid var(--red-main);
+        }
+
+        #progressList li.completed {
+            border-left: 5px solid var(--glow-color);
+        }
+
+        #progressList li span.progress-percentage {
+            font-weight: bold;
+            color: var(--glow-color);
+        }
+
+        #selectedCoursesList li button {
+            background-color: var(--red-main);
+            color: var(--text-primary);
+            border: none;
+            padding: 0.5rem 1rem;
+            cursor: pointer;
+            border-radius: 3px;
+            font-family: 'Orbitron', sans-serif;
+            transition: background-color 0.3s ease;
+        }
+
+        #selectedCoursesList li button:hover {
+            background-color: var(--red-accent);
+        }
+
+        footer {
+            background-color: var(--bg-tertiary);
+            color: var(--text-primary);
+            padding: 3rem 2rem;
+            margin-top: 4rem;
+            border-top: 1px solid var(--border-color-dark);
+            box-shadow: inset 0 5px 15px rgba(0, 0, 0, 0.4);
+        }
+
+        body.light-theme footer {
+            border-top: 1px solid var(--border-color-light);
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+        }
+
+        .footer-column h3 {
+            font-size: 1.2rem;
+            margin-bottom: 1rem;
+            position: relative;
+            padding-bottom: 0.5rem;
+            color: var(--red-accent);
+        }
+
+        .footer-column h3::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 50px;
+            height: 1px;
+            background-color: var(--red-accent);
+        }
+
+        .footer-column ul {
+            list-style: none;
+        }
+
+        .footer-column ul li {
+            margin-bottom: 0.7rem;
+        }
+
+        .footer-column ul li a {
+            color: var(--text-primary);
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .footer-column ul li a:hover {
+            text-decoration: underline;
+            color: var(--glow-color);
+        }
+
+        .social-links {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .social-links a {
+            display: inline-block;
+            width: 36px;
+            height: 36px;
+            border: 1px solid var(--text-primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+            color: var(--text-primary);
+            text-decoration: none;
+            font-size: 1.1rem;
+        }
+
+        .social-links a:hover {
+            background-color: var(--red-accent);
+            color: var(--bg-primary);
+            box-shadow: 0 0 15px var(--glow-color);
+        }
+
+        .copyright {
+            text-align: center;
+            padding-top: 2rem;
+            margin-top: 2rem;
+            border-top: 1px solid var(--border-color-dark);
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+        }
+
+        body.light-theme .copyright {
+            border-top: 1px solid var(--border-color-light);
+        }
+
+        @media (max-width: 992px) {
+            header, .hero, .main-content, footer {
+                padding-left: 1.5rem;
+                padding-right: 1.5rem;
+            }
+
+            .logo h1 {
+                font-size: 1.6rem;
+            }
+
+            .nav-links {
+                gap: 1.5rem;
+            }
+
+            .nav-links a {
+                font-size: 0.95rem;
+            }
+
+            #themeToggle {
+                right: 0;
+            }
+
+            .hero h2 {
+                font-size: 2.5rem;
+            }
+
+            .hero p {
+                font-size: 1.1rem;
+            }
+
+            .section-title {
+                font-size: 2rem;
+            }
+
+            .content-grid {
+                gap: 2rem;
+            }
+
+            .content-card {
+                padding: 1.2rem;
+            }
+
+            .card-content h3 {
+                font-size: 1.2rem;
+            }
+
+            .card-content p {
+                font-size: 0.9rem;
+            }
+
+            #progressTracker, #selectedCourses {
+                padding: 1.5rem;
+            }
+
+            #progressTracker h3, #selectedCourses h3 {
+                font-size: 1.3rem;
+            }
+
+            #progressList li, #selectedCoursesList li {
+                font-size: 0.95rem;
+                padding: 0.8rem 1.2rem;
+            }
+
+            #selectedCoursesList li button {
+                padding: 0.4rem 0.8rem;
+                font-size: 0.85rem;
+            }
+
+            .footer-column h3 {
+                font-size: 1.1rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            nav {
+                flex-direction: column;
+                gap: 1rem;
+                align-items: flex-start;
+            }
+
+            .logo {
+                width: 100%;
+                text-align: center;
+                margin-bottom: 1rem;
+            }
+
+            .nav-links {
+                width: 100%;
+                justify-content: center;
+                gap: 0.8rem;
+                flex-wrap: wrap;
+            }
+
+            .nav-links a {
+                padding: 0.5rem 0.8rem;
+                border-bottom: none;
+            }
+
+            #themeToggle {
+                position: static;
+                margin: 10px auto 0;
+                transform: none;
+            }
+
+            .hero {
+                padding: 3rem 1.5rem;
+            }
+
+            .hero h2 {
+                font-size: 2.2rem;
+            }
+
+            .hero p {
+                font-size: 1rem;
+            }
+
+            .search-bar {
+                flex-direction: column;
+                gap: 0.5rem;
+            }
+
+            .search-bar input, .search-bar button {
+                width: 100%;
+                padding: 0.7rem;
+            }
+
+            .main-content {
+                padding: 0 1.5rem;
+                margin: 2rem auto;
+            }
+
+            .section-title {
+                font-size: 1.8rem;
+                margin-bottom: 1.5rem;
+            }
+
+            .section-title::after {
+                width: 80px;
+            }
+
+            .content-grid {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+            }
+
+            footer {
+                padding: 2rem 1.5rem;
+                margin-top: 3rem;
+            }
+
+            .footer-content {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+
+            .footer-column h3 {
+                text-align: center;
+            }
+
+            .footer-column h3::after {
+                left: 50%;
+                transform: translateX(-50%);
+            }
+
+            .footer-column ul {
+                padding-left: 0;
+            }
+
+            .social-links {
+                justify-content: center;
+            }
+        }
+
+        @media (max-width: 480px) {
+            header, .hero, .main-content, footer {
+                padding-left: 1rem;
+                padding-right: 1rem;
+            }
+
+            .logo h1 {
+                font-size: 1.4rem;
+            }
+
+            .nav-links {
+                gap: 0.5rem;
+            }
+
+            .nav-links a {
+                font-size: 0.85rem;
+                padding: 0.4rem 0.6rem;
+            }
+
+            .hero h2 {
+                font-size: 1.8rem;
+            }
+
+            .hero p {
+                font-size: 0.9rem;
+            }
+
+            .section-title {
+                font-size: 1.6rem;
+            }
+
+            .content-card {
+                padding: 1rem;
+            }
+
+            .card-content h3 {
+                font-size: 1.1rem;
+            }
+
+            .card-content p {
+                font-size: 0.85rem;
+            }
+
+            .card-content a {
+                font-size: 0.8rem;
+                padding: 0.5rem 1rem;
+            }
+
+            .search-bar input, .search-bar button {
+                font-size: 0.9rem;
+            }
+
+            #progressTracker, #selectedCourses {
+                padding: 1rem;
+            }
+
+            #progressTracker h3, #selectedCourses h3 {
+                font-size: 1.1rem;
+            }
+
+            #progressList li, #selectedCoursesList li {
+                font-size: 0.85rem;
+                padding: 0.6rem 1rem;
+            }
+
+            #selectedCoursesList li button {
+                padding: 0.3rem 0.6rem;
+                font-size: 0.75rem;
+            }
+
+            .footer-column h3 {
+                font-size: 1rem;
+            }
+
+            .copyright {
+                font-size: 0.8rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div id="loadingOverlay">
+        <div class="spinner"></div>
+    </div>
+
+    <header>
+        <nav>
+            <div class="logo">
+                <h1>Leveler AI</h1>
+            </div>
+            <div class="nav-links">
+                <a href="home.html">Home</a>
+                <a href="tutorials.html">Tutorials</a>
+                <a href="document.html">Documentation</a>
+                <a href="resources.html">Resources</a>
+                <a href="cheatsheet.html">Cheat Sheets</a>
+            </div>
+            <button id="themeToggle">💡</button>
+        </nav>
+    </header>
+
+    <section id="home" class="hero">
+        <div class="hero-video-background">
+            <video autoplay loop muted playsinline id="heroVideo">
+                <source data-src-dark="./learntocode.mp4" data-src-light="./learntocodelight.mp4" type="video/mp4">
+                Your browser does not support the video tag.
+            </video>
+        </div>
+        <div class="hero-content-overlay">
+            <h2>Learn to Code in the Future</h2>
+            <p>A sleek, minimalist coding resource hub with advanced tutorials and curated references for modern developers.</p>
+            <div class="search-bar">
+                <input type="text" placeholder="Search tutorials, docs, resources...">
+                <button id="searchButton">Search</button>
+            </div>
+        </div>
+    </section>
+
+    <div class="main-content">
+        <section id="featured-blocks">
+            <h2 class="section-title">Explore Our Sections</h2>
+            <div class="content-grid">
+                <div class="content-card">
+                    <div class="card-image">
+                        <img src="https://placehold.co/600x400/1C1C3A/E0E0FF?text=Coding+Tutorials" alt="Coding tutorials image">
+                    </div>
+                    <div class="card-content">
+                        <h3>Coding Tutorials</h3>
+                        <p>Best online tutorials found by us in various languages.</p>
+                        <a href="tutorials.html" target="_blank" class="select-course-btn" data-course-id="tutorials-section" data-course-name="Coding Tutorials">Explore</a>
+                    </div>
+                </div>
+
+                <div class="content-card">
+                    <div class="card-image">
+                        <img src="https://placehold.co/600x400/1C1C3A/E0E0FF?text=Documentation" alt="Documentation image">
+                    </div>
+                    <div class="card-content">
+                        <h3>Documentation</h3>
+                        <p>Expert-written documents from various industries and companies.</p>
+                        <a href="documentation.html" target="_blank" class="select-course-btn" data-course-id="documentation-section" data-course-name="Documentation">Explore</a>
+                    </div>
+                </div>
+
+                <div class="content-card">
+                    <div class="card-image">
+                        <img src="https://placehold.co/600x400/1C1C3A/E0E0FF?text=Resources" alt="Resources image">
+                    </div>
+                    <div class="card-content">
+                        <h3>Resources</h3>
+                        <p>Necessary tools and platforms to proceed with your skill development.</p>
+                        <a href="resources.html" target="_blank" class="select-course-btn" data-course-id="resources-section" data-course-name="Resources">Explore</a>
+                    </div>
+                </div>
+
+                <div class="content-card">
+                    <div class="card-image">
+                        <img src="https://placehold.co/600x400/1C1C3A/E0E0FF?text=Cheatsheets" alt="Cheatsheet image">
+                    </div>
+                    <div class="card-content">
+                        <h3>Cheat Sheets</h3>
+                        <p>Quick revision guides from basics to advanced concepts.</p>
+                        <a href="cheatsheet.html" target="_blank" class="select-course-btn" data-course-id="cheatsheets-section" data-course-name="Cheat Sheets">Explore</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-column">
+                <h3>Leveler AI/h3>
+                <p>A minimalist coding resource hub focused on clean, efficient learning materials.</p>
+                <div class="social-links">
+                    <a href="#" aria-label="GitHub">GH</a>
+                    <a href="#" aria-label="Twitter">TW</a>
+                    <a href="#" aria-label="LinkedIn">LI</a>
+                </div>
+            </div>
+
+            <div class="footer-column">
+                <h3>Quick Links</h3>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="tutorials.html">Tutorials</a></li>
+                    <li><a href="documentation.html">Documentation</a></li>
+                    <li><a href="cheatsheet.html">Cheat Sheets</a></li>
+                    <li><a href="resources.html">Resources</a></li>
+                    <li><a href="about.html">About Us</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-column">
+                <h3>Languages</h3>
+                <ul>
+                    <li><a href="https://www.youtube.com/watch?v=W6NZPH5UGSg" target="_blank">JavaScript</a></li>
+                    <li><a href="https://www.youtube.com/watch?v=rfscVS0vtbw" target="_blank">Python</a></li>
+                    <li><a href="https://www.youtube.com/watch?v=xi3fM7Wf_oQ" target="_blank">HTML/CSS</a></li>
+                    <li><a href="https://www.youtube.com/watch?v=grEKGgs3-E0" target="_blank">Java</a></li>
+                    <li><a href="https://www.youtube.com/watch?v=GhQfwJ76hds" target="_blank">C#</a></li>
+                    <li><a href="https://www.youtube.com/watch?v=YS4e4q9oBaU" target="_blank">Go</a></li>
+                    <li><a href="https://www.youtube.com/watch?v=OXe6IRLwV2I" target="_blank">Rust</a></li>
+                    <li><a href="https://www.youtube.com/watch?v=2e6Yh_KjYVw" target="_blank">PHP</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-column">
+                <h3>Technologies</h3>
+                <ul>
+                    <li><a href="https://www.youtube.com/watch?v=dpw9EHDh2bM" target="_blank">React</a></li>
+                    <li><a href="https://www.youtube.com/watch?v=RLtyhwFtXQM" target="_blank">Node.js</a></li>
+                    <li><a href="https://www.youtube.com/watch?v=RGOj5yH7evk" target="_blank">Git</a></li>
+                    <li><a href="https://www.youtube.com/watch?v=gT0L6_S6Cus" target="_blank">Docker</a></li>
+                    <li><a href="https://www.youtube.com/watch?v=X48g_9S94U0" target="_blank">Kubernetes</a></li>
+                    <li><a href="https://www.youtube.com/watch?v=3W1_gKqP2cE" target="_blank">AWS</a></li>
+                    <li><a href="https://www.youtube.com/watch?v=N_x4L8f7d8o" target="_blank">Azure</a></li>
+                    <li><a href="https://www.youtube.com/watch?v=t1L5_xuF9Jc" target="_blank">GCP</a></li>
+                    <li><a href="https://www.youtube.com/watch?v=Fq_zB3Y1c3M" target="_blank">Django</a></li>
+                    <li><a href="https://www.youtube.com/watch?v=msyYV2vGf8M" target="_blank">Spring Boot</a></li>
+                    <li><a href="https://www.youtube.com/watch?v=K_N3x34M_gU" target="_blank">TensorFlow</a></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="copyright">
+            <p>&copy; 2025 CodeMonochrome. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        const themeToggle = document.getElementById('themeToggle');
+        const body = document.body;
+        const heroVideo = document.getElementById('heroVideo');
+        const videoSource = heroVideo.querySelector('source');
+
+        function setTheme(theme) {
+            if (theme === 'light') {
+                body.classList.add('light-theme');
+                themeToggle.textContent = '💡';
+                videoSource.src = videoSource.dataset.srcLight;
+            } else {
+                body.classList.remove('light-theme');
+                themeToggle.textContent = '🌙';
+                videoSource.src = videoSource.dataset.srcDark;
+            }
+            heroVideo.load();
+            localStorage.setItem('theme', theme);
+        }
+
+        function toggleTheme() {
+            if (body.classList.contains('light-theme')) {
+                setTheme('dark');
+            } else {
+                setTheme('light');
+            }
+        }
+
+        themeToggle.addEventListener('click', toggleTheme);
+
+        // Course Selection and Progress Tracking Logic
+        let selectedCourses = JSON.parse(localStorage.getItem('selectedCourses')) || {};
+
+        function saveCoursesToLocalStorage() {
+            localStorage.setItem('selectedCourses', JSON.stringify(selectedCourses));
+        }
+
+        function loadCoursesFromLocalStorage() {
+            selectedCourses = JSON.parse(localStorage.getItem('selectedCourses')) || {};
+        }
+
+        function addOrUpdateCourse(id, name) {
+            if (!selectedCourses[id]) {
+                selectedCourses[id] = { name: name, progress: 0 };
+            }
+            saveCoursesToLocalStorage();
+            renderSelectedCourses();
+            renderProgressTracker();
+        }
+
+        function removeCourse(id) {
+            delete selectedCourses[id];
+            saveCoursesToLocalStorage();
+            renderSelectedCourses();
+            renderProgressTracker();
+        }
+
+        function updateCourseProgress(id, percentage) {
+            if (selectedCourses[id]) {
+                selectedCourses[id].progress = Math.min(100, Math.max(0, percentage));
+                saveCoursesToLocalStorage();
+                renderProgressTracker();
+            }
+        }
+
+        function renderSelectedCourses() {
+            const list = document.getElementById('selectedCoursesList');
+            list.innerHTML = ''; // Clear existing list
+
+            if (Object.keys(selectedCourses).length === 0) {
+                list.innerHTML = '<li>No courses selected yet. Click "Explore" on a section above to add.</li>';
+                return;
+            }
+
+            for (const id in selectedCourses) {
+                const course = selectedCourses[id];
+                const listItem = document.createElement('li');
+                listItem.innerHTML = `
+                    <span>${course.name}</span>
+                    <button data-course-id="${id}" class="remove-course-btn">Remove</button>
+                `;
+                list.appendChild(listItem);
+            }
+
+            document.querySelectorAll('.remove-course-btn').forEach(button => {
+                button.addEventListener('click', (event) => {
+                    const courseId = event.target.dataset.courseId;
+                    removeCourse(courseId);
+                });
+            });
+        }
+
+        function renderProgressTracker() {
+            const list = document.getElementById('progressList');
+            list.innerHTML = ''; // Clear existing list
+
+            if (Object.keys(selectedCourses).length === 0) {
+                list.innerHTML = '<li>No courses to track. Select some sections above!</li>';
+                return;
+            }
+
+            for (const id in selectedCourses) {
+                const course = selectedCourses[id];
+                const listItem = document.createElement('li');
+                listItem.classList.toggle('completed', course.progress === 100);
+                listItem.innerHTML = `
+                    <span>${course.name}</span>
+                    <div>
+                        <span class="progress-percentage">${course.progress}%</span>
+                        <input type="range" min="0" max="100" value="${course.progress}" data-course-id="${id}" class="progress-slider">
+                    </div>
+                `;
+                list.appendChild(listItem);
+            }
+
+            document.querySelectorAll('.progress-slider').forEach(slider => {
+                slider.addEventListener('input', (event) => {
+                    const courseId = event.target.dataset.courseId;
+                    const percentage = parseInt(event.target.value);
+                    updateCourseProgress(courseId, percentage);
+                    event.target.previousElementSibling.textContent = `${percentage}%`;
+                });
+            });
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const savedTheme = localStorage.getItem('theme') || 'dark';
+            setTheme(savedTheme);
+
+            loadCoursesFromLocalStorage();
+            renderSelectedCourses();
+            renderProgressTracker();
+
+            document.querySelectorAll('.content-card a').forEach(button => {
+                button.addEventListener('click', (event) => {
+                    const courseId = event.target.dataset.courseId;
+                    const courseName = event.target.dataset.courseName;
+                    if (courseId && courseName) {
+                        addOrUpdateCourse(courseId, courseName);
+                        document.getElementById('selectedCourses').scrollIntoView({ behavior: 'smooth' });
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>
