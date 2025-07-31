@@ -1,0 +1,816 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Leveler AI</title>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-primary: #0A0A1F;
+            --bg-secondary: #1C1C3A;
+            --bg-tertiary: #28284A;
+            --text-primary: #E0E0FF;
+            --text-secondary: #C0C0FF;
+            --red-main: #E22B2B;
+            --red-accent: #FC8686;
+            --glow-color: #00FFFF;
+            --border-color-dark: rgba(58, 58, 90, 1);
+            --button-text-dark: #EE0000;
+        }
+
+        body.light-theme {
+            --bg-primary: #F0F0FF;
+            --bg-secondary: #FFFFFF;
+            --bg-tertiary: #E8E8FF;
+            --text-primary: #222233;
+            --text-secondary: #444455;
+            --red-main: #EE0000;
+            --red-accent: #FC8686;
+            --glow-color: rgba(0, 255, 255, 0.3);
+            --border-color-light: rgba(208, 208, 224, 1);
+            --button-text-dark: #FC8686;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Orbitron', sans-serif;
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.7;
+            transition: background-color 0.5s ease, color 0.5s ease;
+        }
+
+        header {
+            background-color: var(--bg-tertiary);
+            color: var(--text-primary);
+            padding: 1rem 2rem;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            border-bottom: 1px solid var(--border-color-dark);
+            box-shadow: 0 2px 15px rgba(0, 0, 0, 0.6);
+        }
+
+        body.light-theme header {
+            border-bottom: 1px solid var(--border-color-light);
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+            position: relative;
+        }
+
+        .logo h1 {
+            font-size: 1.8rem;
+            font-weight: 700;
+            letter-spacing: 2px;
+            text-shadow: 0 0 8px var(--glow-color);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            color: var(--text-primary);
+            text-decoration: none;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            border-bottom: 2px solid transparent;
+            padding-bottom: 0.3rem;
+        }
+
+        .nav-links a:hover {
+            border-bottom: 2px solid var(--red-accent);
+            color: var(--glow-color);
+            text-shadow: 0 0 10px var(--glow-color);
+        }
+
+        #themeToggle {
+            position: absolute;
+            top: 50%;
+            right: -5%;
+            transform: translateY(-50%);
+            background: var(--red-main);
+            color: var(--text-primary);
+            border: 2px solid var(--red-accent);
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 1.5em;
+            cursor: pointer;
+            box-shadow: 0 0 15px var(--glow-color);
+            transition: background 0.3s ease, color 0.3s ease, box-shadow 0.3s ease, transform 0.3s ease;
+        }
+
+        #themeToggle:hover {
+            background: var(--red-accent);
+            box-shadow: 0 0 20px var(--glow-color), 0 0 30px var(--glow-color);
+            transform: translateY(-50%) scale(1.05);
+        }
+
+        .hero {
+            position: relative;
+            padding: 4rem 2rem;
+            text-align: center;
+            border-bottom: 1px solid var(--border-color-dark);
+            box-shadow: inset 0 -15px 30px rgba(0, 0, 0, 0.4);
+            overflow: hidden;
+            min-height: 400px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        body.light-theme .hero {
+            border-bottom: 1px solid var(--border-color-light);
+        }
+
+        .hero-video-background {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            z-index: -1;
+        }
+
+        .hero-video-background video {
+            min-width: 100%;
+            min-height: 100%;
+            width: auto;
+            height: auto;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            object-fit: cover;
+        }
+
+        .hero-content-overlay {
+            position: relative;
+            z-index: 1;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: rgba(0, 0, 0, 0.4);
+            border-radius: 10px;
+        }
+
+        .hero h2 {
+            font-size: 2.8rem;
+            margin-bottom: 1rem;
+            font-weight: 700;
+            text-shadow: 0 0 15px var(--glow-color), 0 0 30px var(--glow-color);
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            max-width: 800px;
+            margin: 0 auto 2rem;
+            color: var(--text-primary);
+            opacity: 0.9;
+        }
+
+        .main-content {
+            max-width: 1200px;
+            margin: 3rem auto;
+            padding: 0 2rem;
+        }
+
+        .section-title {
+            font-size: 2.2rem;
+            margin-bottom: 2rem;
+            text-align: center;
+            position: relative;
+            padding-bottom: 0.8rem;
+            color: var(--text-primary);
+            text-shadow: 0 0 10px var(--glow-color);
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 120px;
+            height: 3px;
+            background-color: var(--red-main);
+            box-shadow: 0 0 15px var(--glow-color);
+        }
+
+        .resource-categories {
+            display: flex;
+            flex-wrap: nowrap;
+            gap: 1rem;
+            justify-content: flex-start;
+            margin-bottom: 2rem;
+            overflow-x: auto;
+            padding-bottom: 10px;
+            -webkit-overflow-scrolling: touch;
+            scrollbar-width: thin;
+            scrollbar-color: var(--red-main) var(--bg-secondary);
+        }
+
+        .resource-categories::-webkit-scrollbar {
+            height: 8px;
+        }
+
+        .resource-categories::-webkit-scrollbar-track {
+            background: var(--bg-secondary);
+            border-radius: 10px;
+        }
+
+        .resource-categories::-webkit-scrollbar-thumb {
+            background-color: var(--red-main);
+            border-radius: 10px;
+            border: 2px solid var(--bg-secondary);
+        }
+
+        .resource-categories button {
+            flex-shrink: 0;
+            padding: 0.6rem 1.2rem;
+            background-color: transparent;
+            border: 1px solid var(--red-main);
+            color: var(--text-primary);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-family: 'Orbitron', sans-serif;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+        }
+
+        .resource-categories button.active,
+        .resource-categories button:hover {
+            background-color: var(--red-main);
+            color: var(--text-primary);
+            box-shadow: 0 0 10px var(--glow-color);
+        }
+
+        .resources-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .resource-item {
+            background-color: var(--bg-secondary);
+            border: 1px solid var(--border-color-dark);
+            padding: 1.5rem;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+            border-radius: 5px;
+        }
+
+        body.light-theme .resource-item {
+            border: 1px solid var(--border-color-light);
+        }
+
+        .resource-item:hover {
+            border-color: var(--red-accent);
+            box-shadow: 0 0 15px var(--glow-color);
+        }
+
+        .resource-item h3 {
+            margin-bottom: 0.5rem;
+            font-size: 1.1rem;
+            color: var(--red-accent);
+        }
+
+        .resource-item p {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            margin-bottom: 0.5rem;
+        }
+
+        .resource-item a {
+            color: var(--red-main);
+            text-decoration: none;
+            font-size: 0.85rem;
+            font-weight: bold;
+            display: inline-block;
+            margin-top: 0.5rem;
+        }
+
+        .resource-item a:hover {
+            text-decoration: underline;
+            color: var(--glow-color);
+        }
+
+        footer {
+            background-color: var(--bg-tertiary);
+            color: var(--text-primary);
+            padding: 3rem 2rem;
+            margin-top: 4rem;
+            border-top: 1px solid var(--border-color-dark);
+            box-shadow: inset 0 5px 15px rgba(0, 0, 0, 0.4);
+        }
+
+        body.light-theme footer {
+            border-top: 1px solid var(--border-color-light);
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+        }
+
+        .footer-column h3 {
+            font-size: 1.2rem;
+            margin-bottom: 1rem;
+            position: relative;
+            padding-bottom: 0.5rem;
+            color: var(--red-accent);
+        }
+
+        .footer-column h3::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 50px;
+            height: 1px;
+            background-color: var(--red-accent);
+        }
+
+        .footer-column ul {
+            list-style: none;
+        }
+
+        .footer-column ul li {
+            margin-bottom: 0.7rem;
+        }
+
+        .footer-column ul li a {
+            color: var(--text-primary);
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .footer-column ul li a:hover {
+            text-decoration: underline;
+            color: var(--glow-color);
+        }
+
+        .social-links {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .social-links a {
+            display: inline-block;
+            width: 36px;
+            height: 36px;
+            border: 1px solid var(--text-primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+            color: var(--text-primary);
+            text-decoration: none;
+            font-size: 1.1rem;
+        }
+
+        .social-links a:hover {
+            background-color: var(--red-accent);
+            color: var(--bg-primary);
+            box-shadow: 0 0 15px var(--glow-color);
+        }
+
+        .copyright {
+            text-align: center;
+            padding-top: 2rem;
+            margin-top: 2rem;
+            border-top: 1px solid var(--border-color-dark);
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+        }
+
+        body.light-theme .copyright {
+            border-top: 1px solid var(--border-color-light);
+        }
+
+        @media (max-width: 992px) {
+            header, .hero, .main-content, footer {
+                padding-left: 1.5rem;
+                padding-right: 1.5rem;
+            }
+
+            .logo h1 {
+                font-size: 1.6rem;
+            }
+
+            .nav-links {
+                gap: 1.5rem;
+            }
+
+            .nav-links a {
+                font-size: 0.95rem;
+            }
+
+            #themeToggle {
+                right: 0;
+            }
+
+            .hero h2 {
+                font-size: 2.5rem;
+            }
+
+            .hero p {
+                font-size: 1.1rem;
+            }
+
+            .section-title {
+                font-size: 2rem;
+            }
+
+            .resources-grid {
+                gap: 2rem;
+            }
+
+            .resource-item {
+                padding: 1.2rem;
+            }
+
+            .resource-item h3 {
+                font-size: 1.2rem;
+            }
+
+            .resource-item p {
+                font-size: 0.9rem;
+            }
+
+            .footer-column h3 {
+                font-size: 1.1rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            nav {
+                flex-direction: column;
+                gap: 1rem;
+                align-items: flex-start;
+            }
+
+            .logo {
+                width: 100%;
+                text-align: center;
+                margin-bottom: 1rem;
+            }
+
+            .nav-links {
+                width: 100%;
+                justify-content: center;
+                gap: 0.8rem;
+                flex-wrap: wrap;
+            }
+
+            .nav-links a {
+                padding: 0.5rem 0.8rem;
+                border-bottom: none;
+            }
+
+            #themeToggle {
+                position: static;
+                margin: 10px auto 0;
+                transform: none;
+            }
+
+            .hero {
+                padding: 3rem 1.5rem;
+            }
+
+            .hero h2 {
+                font-size: 2.2rem;
+            }
+
+            .hero p {
+                font-size: 1rem;
+            }
+
+            .main-content {
+                padding: 0 1.5rem;
+                margin: 2rem auto;
+            }
+
+            .section-title {
+                font-size: 1.8rem;
+                margin-bottom: 1.5rem;
+            }
+
+            .section-title::after {
+                width: 80px;
+            }
+
+            .resource-categories {
+                gap: 0.7rem;
+            }
+
+            .resources-grid {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+            }
+
+            footer {
+                padding: 2rem 1.5rem;
+                margin-top: 3rem;
+            }
+
+            .footer-content {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+
+            .footer-column h3 {
+                text-align: center;
+            }
+
+            .footer-column h3::after {
+                left: 50%;
+                transform: translateX(-50%);
+            }
+
+            .footer-column ul {
+                padding-left: 0;
+            }
+
+            .social-links {
+                justify-content: center;
+            }
+        }
+
+        @media (max-width: 480px) {
+            header, .hero, .main-content, footer {
+                padding-left: 1rem;
+                padding-right: 1rem;
+            }
+
+            .logo h1 {
+                font-size: 1.4rem;
+            }
+
+            .nav-links {
+                gap: 0.5rem;
+            }
+
+            .nav-links a {
+                font-size: 0.85rem;
+                padding: 0.4rem 0.6rem;
+            }
+
+            .hero h2 {
+                font-size: 1.8rem;
+            }
+
+            .hero p {
+                font-size: 0.9rem;
+            }
+
+            .section-title {
+                font-size: 1.6rem;
+            }
+
+            .resource-item {
+                padding: 1rem;
+            }
+
+            .resource-item h3 {
+                font-size: 1.1rem;
+            }
+
+            .resource-item p {
+                font-size: 0.85rem;
+            }
+
+            .resource-item a {
+                font-size: 0.8rem;
+                padding: 0.5rem 1rem;
+            }
+
+            .footer-column h3 {
+                font-size: 1rem;
+            }
+
+            .copyright {
+                font-size: 0.8rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div id="loadingOverlay">
+        <div class="spinner"></div>
+    </div>
+
+    <header>
+        <nav>
+            <div class="logo">
+                <h1>Leveler AI</h1>
+            </div>
+            <div class="nav-links">
+                <a href="index.html">Home</a>
+                <a href="tutorials.html">Tutorials</a>
+                <a href="documentation.html">Documentation</a>
+                <a href="cheatsheet.html">Cheat Sheets</a>
+                <a href="resources.html">Resources</a>
+                <a href="about.html">About</a>
+                <a href="contact.html">Contact</a>
+            </div>
+            <button id="themeToggle">💡</button>
+        </nav>
+    </header>
+
+    <section class="hero">
+        <div class="hero-video-background">
+            <video autoplay loop muted playsinline id="heroVideo">
+                <source data-src-dark="./resources_dark.mp4" data-src-light="https://assets.mixkit.co/videos/preview/mixkit-computer-chips-lit-by-red-light-35436-medium.mp4" type="video/mp4">
+                Your browser does not support the video tag.
+            </video>
+        </div>
+        <div class="hero-content-overlay">
+            <h2>Essential Development Resources</h2>
+            <p>Discover a curated list of tools, libraries, APIs, and platforms to supercharge your coding projects.</p>
+        </div>
+    </section>
+
+    <div class="main-content">
+        <section id="resources-list-section">
+            <h2 class="section-title">Explore Resources</h2>
+            <div class="resource-categories">
+                <button class="active" data-category="all">All</button>
+                <button data-category="frameworks">Frameworks</button>
+                <button data-category="libraries">Libraries</button>
+                <button data-category="tools">Tools</button>
+                <button data-category="apis">APIs</button>
+                <button data-category="databases">Databases</button>
+                <button data-category="cloud">Cloud Platforms</button>
+                <button data-category="devops">DevOps</button>
+                <button data-category="ai-ml">AI/ML</button>
+                <button data-category="ui-ux">UI/UX</button>
+            </div>
+            <div class="resources-grid">
+                <div class="resource-item" data-category="frameworks">
+                    <h3>React.js</h3>
+                    <p>A JavaScript library for building user interfaces.</p>
+                    <a href="https://react.dev/" target="_blank">Visit Site</a>
+                </div>
+                <div class="resource-item" data-category="frameworks">
+                    <h3>Angular</h3>
+                    <p>A platform and framework for building single-page client applications.</p>
+                    <a href="https://angular.io/" target="_blank">Visit Site</a>
+                </div>
+                <div class="resource-item" data-category="frameworks">
+                    <h3>Vue.js</h3>
+                    <p>The Progressive JavaScript Framework.</p>
+                    <a href="https://vuejs.org/" target="_blank">Visit Site</a>
+                </div>
+                <div class="resource-item" data-category="frameworks">
+                    <h3>Django</h3>
+                    <p>The web framework for perfectionists with deadlines.</p>
+                    <a href="https://www.djangoproject.com/" target="_blank">Visit Site</a>
+                </div>
+                <div class="resource-item" data-category="frameworks">
+                    <h3>Spring Boot</h3>
+                    <p>Framework for building production-ready, stand-alone Spring applications.</p>
+                    <a href="https://spring.io/projects/spring-boot" target="_blank">Visit Site</a>
+                </div>
+                <div class="resource-item" data-category="libraries">
+                    <h3>jQuery</h3>
+                    <p>Fast, small, and feature-rich JavaScript library.</p>
+                    <a href="https://jquery.com/" target="_blank">Visit Site</a>
+                </div>
+                <div class="resource-item" data-category="libraries">
+                    <h3>D3.js</h3>
+                    <p>A JavaScript library for manipulating documents based on data.</p>
+                    <a href="https://d3js.org/" target="_blank">Visit Site</a>
+                </div>
+                <div class="resource-item" data-category="tools">
+                    <h3>VS Code</h3>
+                    <p>A powerful, free, and open-source code editor.</p>
+                    <a href="https://code.visualstudio.com/" target="_blank">Visit Site</a>
+                </div>
+                <div class="resource-item" data-category="tools">
+                    <h3>Postman</h3>
+                    <p>API development and testing tool for various API types.</p>
+                    <a href="https://www.postman.com/" target="_blank">Visit Site</a>
+                </div>
+                <div class="resource-item" data-category="apis">
+                    <h3>Stripe API</h3>
+                    <p>APIs for online payments and financial services.</p>
+                    <a href="https://stripe.com/docs/api" target="_blank">Visit Site</a>
+                </div>
+                <div class="resource-item" data-category="databases">
+                    <h3>MongoDB</h3>
+                    <p>A NoSQL document database that provides high performance.</p>
+                    <a href="https://www.mongodb.com/" target="_blank">Visit Site</a>
+                </div>
+                <div class="resource-item" data-category="cloud">
+                    <h3>AWS</h3>
+                    <p>Amazon Web Services: Cloud computing services.</p>
+                    <a href="https://aws.amazon.com/" target="_blank">Visit Site</a>
+                </div>
+                <div class="resource-item" data-category="devops">
+                    <h3>Docker</h3>
+                    <p>Platform for developing, shipping, and running applications in containers.</p>
+                    <a href="https://www.docker.com/" target="_blank">Visit Site</a>
+                </div>
+                <div class="resource-item" data-category="ai-ml">
+                    <h3>TensorFlow</h3>
+                    <p>An open-source machine learning framework.</p>
+                    <a href="https://www.tensorflow.org/" target="_blank">Visit Site</a>
+                </div>
+                <div class="resource-item" data-category="ui-ux">
+                    <h3>Figma</h3>
+                    <p>Collaborative interface design tool.</p>
+                    <a href="https://www.figma.com/" target="_blank">Visit Site</a>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <footer>
+        <div class="copyright">
+            <p>&copy; 2025 Leveler AI. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        const themeToggle = document.getElementById('themeToggle');
+        const body = document.body;
+        const heroVideo = document.getElementById('heroVideo');
+        const videoSource = heroVideo.querySelector('source');
+
+        function setTheme(theme) {
+            if (theme === 'light') {
+                body.classList.add('light-theme');
+                themeToggle.textContent = '💡';
+                videoSource.src = videoSource.dataset.srcLight;
+            } else {
+                body.classList.remove('light-theme');
+                themeToggle.textContent = '🌙';
+                videoSource.src = videoSource.dataset.srcDark;
+            }
+            heroVideo.load();
+            localStorage.setItem('theme', theme);
+        }
+
+        function toggleTheme() {
+            if (body.classList.contains('light-theme')) {
+                setTheme('dark');
+            } else {
+                setTheme('light');
+            }
+        }
+
+        themeToggle.addEventListener('click', toggleTheme);
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const savedTheme = localStorage.getItem('theme') || 'dark';
+            setTheme(savedTheme);
+
+            // Resource filtering logic
+            const categoryButtons = document.querySelectorAll('.resource-categories button');
+            const resourceItems = document.querySelectorAll('.resources-grid .resource-item');
+
+            categoryButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                    const category = button.dataset.category;
+
+                    // Remove active class from all buttons
+                    categoryButtons.forEach(btn => btn.classList.remove('active'));
+                    // Add active class to the clicked button
+                    button.classList.add('active');
+
+                    resourceItems.forEach(item => {
+                        if (category === 'all' || item.dataset.category === category) {
+                            item.style.display = 'block';
+                        } else {
+                            item.style.display = 'none';
+                        }
+                    });
+                });
+            });
+        });
+    </script>
+</body>
+</html>
